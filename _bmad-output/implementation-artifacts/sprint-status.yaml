@@ -1,0 +1,138 @@
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created, ready for development
+#   - in-progress: Developer actively working on implementation
+#   - review: Implementation complete, ready for review
+#   - done: Story completed
+
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
+# Action Item Status:
+#   - open: Committed during a retrospective, not yet addressed
+#   - in-progress: Actively being worked on
+#   - done: Completed
+
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when its first story starts (via build's sprint sync)
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates the next story after the previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+# - Retrospective appends its action items to action_items; the status view surfaces open ones
+generated: 11-11-2026 22:33
+last_updated: 11-11-2026 22:33
+project: avalon
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+development_status:
+  epic-1: backlog
+  1-1-the-repo-s-public-face: backlog
+  1-2-this-repo-s-own-avalon-tree-created-by-hand: backlog
+  1-3-the-engineering-standards-refined-with-the-user: backlog
+  1-4-a-stand-in-round-table-hears-the-standards-that-are-laws: backlog
+  1-5-a-stand-in-round-table-hears-the-architecture: backlog
+  1-6-a-stand-in-round-table-hears-the-tooling-and-delivery-decisi: backlog
+  1-7-a-contributor-can-set-up-the-tools-and-run-each-suite: backlog
+  1-8-a-person-can-install-the-plugin-from-the-repo: backlog
+  1-9-a-gate-scans-tracked-files-for-plan-citations-home-paths-and: backlog
+  1-10-gate-logic-lives-in-tested-code: backlog
+  1-11-the-gates-run-on-a-pull-request-that-is-ready-for-review: backlog
+  1-12-release-code-works-out-the-next-version: backlog
+  1-13-a-pull-request-needs-one-version-label-and-a-merge-releases: backlog
+  1-14-the-owner-turns-the-rules-on-and-a-drill-proves-them: backlog
+  epic-1-retrospective: optional
+
+  epic-2: backlog
+  2-1-the-writing-standard-is-ratified: backlog
+  2-2-the-other-eight-core-laws-are-ratified: backlog
+  2-3-templates-for-the-laws-folder: backlog
+  2-4-templates-for-adrs-and-design-docs: backlog
+  2-5-the-block-template: backlog
+  epic-2-retrospective: optional
+
+  epic-3: backlog
+  3-1-one-entry-file-and-a-closed-command-line: backlog
+  3-2-gates-keep-the-script-free-of-dependencies-and-its-layers-ap: backlog
+  3-3-files-the-clock-and-git-sit-behind-ports: backlog
+  3-4-the-script-finds-the-config-file-the-root-and-the-tree-s-ver: backlog
+  3-5-a-command-writes-all-of-its-changes-or-none: backlog
+  3-6-the-law-record-s-formats-and-its-checksum-have-one-home: backlog
+  3-7-scaffold-sets-avalon-s-tree-up-in-a-repo: backlog
+  3-8-lint-checks-the-law-record: backlog
+  3-9-a-matter-has-one-folder-and-one-record: backlog
+  3-10-packet-vote-and-tally-record-a-round: backlog
+  3-11-law-add-and-law-reject-register-a-round-table-s-outcome: backlog
+  3-12-law-amend-and-law-remove-retire-a-law-into-the-archive: backlog
+  3-13-no-file-cites-a-retired-law: backlog
+  3-14-the-user-confirms-an-agent-s-law: backlog
+  3-15-frontmatter-the-two-indexes-and-the-lint-for-documents: backlog
+  3-16-the-lint-checks-what-the-writing-standard-can-measure: backlog
+  3-17-this-repo-s-own-tree-passes-the-lint-and-gets-its-first-chec: backlog
+  epic-3-retrospective: optional
+
+  epic-4: backlog
+  4-1-the-hook-denies-a-direct-write-to-the-record: backlog
+  4-2-the-hook-approves-the-plugin-s-own-everyday-commands: backlog
+  4-3-a-claim-of-the-user-s-authority-becomes-a-prompt-or-is-denie: backlog
+  4-4-plugin-evals-prove-the-guards-inside-claude-code: backlog
+  4-5-six-seats-each-with-one-fixed-perspective: backlog
+  4-6-the-prose-editor-reads-as-a-newcomer: backlog
+  4-7-the-chair-runs-a-law-matter-from-screening-to-registration: backlog
+  4-8-the-law-skill-takes-a-proposal-to-the-round-table: backlog
+  4-9-the-user-s-final-say-at-a-law-table: backlog
+  4-10-a-working-agent-obeys-the-laws-and-may-propose-one: backlog
+  4-11-avalon-governs-this-repo-through-the-plugin: backlog
+  epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-adr-new-records-an-adopted-decision: backlog
+  5-2-adr-log-and-adr-reject-record-a-change-and-a-rejection: backlog
+  5-3-adr-retire-deletes-an-adr-and-no-file-may-cite-it: backlog
+  5-4-the-user-confirms-an-agent-s-adr: backlog
+  5-5-a-decision-that-predates-avalon-is-recorded-without-a-round: backlog
+  5-6-the-tech-writer-words-what-it-is-given: backlog
+  5-7-the-chair-hears-a-decision: backlog
+  5-8-three-fixtures-stand-in-for-real-repos: backlog
+  5-9-init-surveys-a-repo-and-sets-avalon-up-in-it: backlog
+  5-10-init-writes-the-core-documents: backlog
+  5-11-init-is-proven-on-every-fixture: backlog
+  epic-5-retrospective: optional
+
+  epic-6: backlog
+  6-1-the-adr-skill-takes-a-new-decision-to-the-round-table: backlog
+  6-2-the-adr-skill-changes-retires-and-confirms-a-decision: backlog
+  6-3-the-design-skill-writes-and-reshapes-design-docs: backlog
+  6-4-the-intake-skill-sorts-a-design-conversation: backlog
+  6-5-a-working-agent-obeys-the-adrs-and-this-repo-s-decisions-run: backlog
+  epic-6-retrospective: optional
+
+  epic-7: backlog
+  7-1-for-lists-what-covers-a-path: backlog
+  7-2-stale-lists-the-design-docs-that-fell-behind-and-verify-stam: backlog
+  7-3-status-gives-one-short-summary: backlog
+  7-4-the-law-reviewer-reports-what-breaks-a-law-or-an-adr: backlog
+  7-5-check-audits-the-docs-and-changes-nothing: backlog
+  7-6-sync-brings-the-docs-back-in-line-after-work: backlog
+  epic-7-retrospective: optional
+
+  epic-8: backlog
+  8-1-move-root-moves-the-tree: backlog
+  8-2-merge-joins-law-changes-from-two-branches: backlog
+  8-3-merge-joins-adr-changes-from-two-branches: backlog
+  8-4-an-upgrade-never-changes-what-the-record-says: backlog
+  8-5-a-target-repo-can-run-the-lint-in-ci: backlog
+  8-6-a-stranger-can-decide-and-install-from-the-readme-alone: backlog
+  8-7-every-release-gate-is-proven: backlog
+  8-8-the-plans-are-retired: backlog
+  8-9-version-1-0-0-ships: backlog
+  epic-8-retrospective: optional

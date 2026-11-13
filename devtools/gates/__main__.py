@@ -3,12 +3,21 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
-from devtools.adapters.git import RealGit
+from devtools.adapters.gh import GhError, RealGh
+from devtools.adapters.git import GitError, RealGit
 from devtools.adapters.process import RealProcess
-from devtools.gates import secret_scan, text_scan, tracked_scan
+from devtools.gates import (
+    changed_paths,
+    secret_scan,
+    text_scan,
+    tracked_scan,
+    verdict,
+    workflow_check,
+)
 
 
 def _read_text(root: Path, path: str) -> str | None:
@@ -32,10 +41,41 @@ def run(argv: list[str], root: Path) -> int:
     pull = sub.add_parser("pull-request")
     pull.add_argument("--title", required=True)
     pull.add_argument("--body", required=True)
+    changes = sub.add_parser("changed-paths")
+    source = changes.add_mutually_exclusive_group(required=True)
+    source.add_argument("--base")
+    source.add_argument("--pr", type=int)
+    verdict_parser = sub.add_parser("verdict")
+    verdict_parser.add_argument("--needs", required=True, help="the needs context, as JSON")
+    verdict_parser.add_argument("--filter-job", default="changes")
+    verdict_parser.add_argument("--gate", action="append", default=[], help="job=output")
+    sub.add_parser("workflows")
     args = parser.parse_args(argv)
 
     process = RealProcess()
     git = RealGit(process, str(root))
+    try:
+        if args.command == "changed-paths":
+            paths = (
+                git.changed_files(args.base)
+                if args.base
+                else RealGh(process, str(root)).changed_files(args.pr)
+            )
+            print("\n".join(changed_paths.render(changed_paths.outputs(paths))))
+            return 0
+    except (GitError, GhError) as error:
+        print(error, file=sys.stderr)
+        return 2
+    if args.command == "verdict":
+        gated = dict(item.split("=", 1) for item in args.gate)
+        needs = json.loads(args.needs)
+        return _report(verdict.judge(needs, gated, args.filter_job))
+    if args.command == "workflows":
+        problems: list[str] = []
+        folder = root / ".github" / "workflows"
+        for workflow in sorted([*folder.glob("*.yml"), *folder.glob("*.yaml")]):
+            problems += workflow_check.check(workflow.name, workflow.read_text(encoding="utf-8"))
+        return _report(problems)
     if args.command == "tracked":
         found = tracked_scan.scan_tracked_files(git, lambda p: _read_text(root, p))
         return _report([f.render() for f in found])

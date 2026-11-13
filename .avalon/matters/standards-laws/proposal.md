@@ -1,30 +1,27 @@
 # Law matter: engineering standards
 
-Kind: law matter, one slate, seven proposals. Proposer: the user. Status: held for a round table; nothing is registered.
-Each proposal gets its own vote. Scope `code` is on the scope list, added with the user's agreement.
-A stand-in chair and five stand-in seats settled the kind and wording of each standard in a pre-sitting of three rounds, unanimous at the end. The registering sitting hears these texts again, and the user decides.
-
-| # | Scope | Origin | Proposed law | Check |
-|---|---|---|---|---|
-| 1 | code | user | Every test has exactly one Act, with all of its setup before the Act and all of its assertions after it. | The law-reviewer reads the tests a change touches. |
-| 2 | code | user | Every test belongs to exactly one suite: unit, integration, end-to-end, contract, or eval. Unit tests and integration tests run apart. | Each suite is its own gate job, and a gate fails any test in no suite. |
-| 3 | code | user | A unit test touches no file system, subprocess, or network, and the whole unit run finishes within the wall-clock budget set by the test-layout ADR. | A gate blocks those calls and times the unit run. |
-| 4 | code | user | No unit, integration, or end-to-end test uses git or the network. | A blocking fixture fails any such test that starts git or opens a connection. |
-| 5 | code | user | Tests cover at least 80% of the Python this repo authors, tests excluded. | A gate fails below 80%. |
-| 6 | code | user | Python this repo authors passes the repo's linter, formatter, and type checker, which the tool-choice ADR names. | Gates run each tool. |
-| 7 | code | user | No directory this repo authors is named utils, helpers, misc, common, or tmp. | A gate matches directory names, case-insensitive, at any depth. |
+Kind: law matter, one slate. Proposer: the user. Status: a stand-in round table heard the slate in three rounds; LAW-000010 is registered, and six proposals are held for the user's decision. Scope `code` is on the scope list.
 
 ## Shared definition (detail for proposals 5, 6, and 7)
 
-This repo authors every path except those fixed by outside tools: `_bmad/`, `_bmad-output/`, and `.claude/`.
+This repo authors every git-tracked path except `_bmad/`, `_bmad-output/`, and `.claude/`. The table recommends the words "git-tracked", so that untracked and ignored files do not count.
 
-## Detail for proposal 1
+## Held proposals
 
-Fixtures and parametrization count as Arrange. A `pytest.raises` block that wraps the Act counts as Act plus Assert.
+Each held proposal was voted on separately and ended 5 approve, 0 amend, 0 reject in the last round. A proposal marked "reworded" differs from the user's text, so it is registered only when the user accepts the table's wording, counters it, or directs that the original be registered as written.
+
+| # | Scope | Origin | Table's recommended law | The user's original | Check |
+|---|---|---|---|---|---|
+| 2 | code | user | Every test belongs to exactly one suite (unit, integration, end-to-end, contract, or eval), and each suite runs separately from the others. | Reworded: two sentences became one, and "run apart" became "separately". | Each suite is its own gate job, and a gate fails any test in no suite. |
+| 3 | code | user | A unit test touches no file system, subprocess, or network beyond pytest's own import and cache access, and the whole unit run finishes within 10 seconds. | Reworded: the 10-second budget and the carve-out move from the detail and the test-layout ADR into the law. | A gate blocks those calls and times the unit run. |
+| 4 | code | user | No integration or end-to-end test uses git or the network. | Reworded: "unit" is dropped, because proposal 3 already covers unit tests. | A blocking fixture fails any such test that starts git or opens a connection. |
+| 5 | code | user | Tests cover at least 80% of the lines of Python this repo authors, tests excluded. | Reworded: "lines" names the measure. | A gate fails below 80%. |
+| 6 | code | user | Python this repo authors passes the repo's linter, formatter, and type checker, which the tool-choice ADR names. | Not reworded. Held because the tool-choice ADR does not exist yet. | Gates run each tool. |
+| 7 | code | user | No directory this repo authors is named utils, helpers, misc, common, or tmp, in any letter case. | Reworded: "in any letter case" moves from the check into the law. | A gate matches directory names at any depth. |
 
 ## Detail for proposal 3
 
-The gate must not block the file access that pytest itself makes for temp files, its cache, and imports. The test-layout ADR lists the blocked calls and holds the budget, which defaults to 10 seconds.
+The gate does not block the file access that pytest makes for its cache and imports. It blocks temp files, so a unit test uses a fake and not `tmp_path`. Real file access belongs in the integration suite.
 
 ## Detail for proposal 4
 
@@ -32,16 +29,12 @@ The contract tests and the plugin evals are suites outside the unit, integration
 
 ## Detail for proposal 5
 
-The detail names the tests directory as excluded.
+The tests directory is excluded.
 
-## Note on proposal 7
+## Option for the user on LAW-000010
 
-The plan folder was named `tmp`, a name the law forbids. It is renamed `temporary-plans`, so the law holds on adoption.
+The Enforcer proposed requiring a `# Act` comment on the Act of each test, so that a gate could check the law. The table did not adopt it. The user may propose it as an amendment.
 
 ## Raised for a separate matter
 
 markdownlint is not part of this slate. It is a docs-scope proposal, checked against the writing standard, for a later sitting.
-
-## Standards that became guidelines
-
-Test-driven development, "a unit test replaces everything outside its unit with a fake", weighing CPU time and memory, DRY and SOLID, and "every file in a directory serves its directory's purpose" are guidelines, held in `docs/design/engineering-standards.md`.

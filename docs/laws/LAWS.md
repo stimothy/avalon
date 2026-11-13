@@ -14,3 +14,4 @@ Open a detail file only when the one-line law is not enough to act on.
 | LAW-000007 | adr | core | After install, a decision that meets the ADR test goes to the round table before it is carried out, and is recorded in an ADR when it is adopted. | |
 | LAW-000008 | design | core | A change that makes a design doc untrue updates that doc in the same change. | |
 | LAW-000009 | docs | core | Every doc follows the writing standard. | [more](LAW-000009.md) |
+| LAW-000010 | code | user | Every test has exactly one Act, with all of its setup before the Act and all of its assertions after it. | [more](LAW-000010.md) |

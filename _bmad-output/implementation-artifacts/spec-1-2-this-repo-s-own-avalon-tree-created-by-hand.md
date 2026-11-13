@@ -16,7 +16,7 @@ context:
 
 **Problem:** The repo has no Avalon docs tree, no `.avalon.yml`, and no `CLAUDE.md`, so no rule, decision, or description has a home.
 
-**Approach:** Write by hand, in final format, the tree an Avalon install would create: `docs/laws/`, `docs/adr/`, `docs/design/`, `.avalon.yml`, and the `CLAUDE.md` block that imports the registry. Formats come from `tmp/SPEC.md` sections 3, 5, 6, 7, 9, 11.
+**Approach:** Write by hand, in final format, the tree an Avalon install would create: `docs/laws/`, `docs/adr/`, `docs/design/`, `.avalon.yml`, and the `CLAUDE.md` block that imports the registry. Formats come from `temporary-plans/SPEC.md` sections 3, 5, 6, 7, 9, 11.
 
 ## Boundaries & Constraints
 
@@ -36,7 +36,7 @@ context:
 
 ## Code Map
 
-- `tmp/SPEC.md` -- formats (sections 3, 5, 6, 7, 8, 9, 11) and default caps (section 18). Read-only; never cited from permanent files.
+- `temporary-plans/SPEC.md` -- formats (sections 3, 5, 6, 7, 8, 9, 11) and default caps (section 18). Read-only; never cited from permanent files.
 - `.gitignore` -- tracks `docs/`, `.avalon.yml`, `CLAUDE.md`; nothing to change.
 - Install commit: `b91b169fb6b690365f6b9d3e6ed1d8e85cfcc769` (HEAD of `master` when the tree is created).
 
@@ -59,7 +59,7 @@ context:
 
 ## Implementation Notes
 
-Stand-in writer and stand-in editor were this session, working against the draft writing standard. `tmp/` is left out of the overview map so permanent docs name no plan folder. Install time is UTC at creation. ADR 0002 and the glossary/overview stamps use the install commit.
+Stand-in writer and stand-in editor were this session, working against the draft writing standard. `temporary-plans/` is left out of the overview map so permanent docs name no plan folder. Install time is UTC at creation. ADR 0002 and the glossary/overview stamps use the install commit.
 
 ## Spec Change Log
 
@@ -75,5 +75,5 @@ Choices made without the user (not visible in the result's intent): profile `oth
 
 **Commands:**
 - `grep -rIEn "@[A-Za-z0-9.-]+\.[a-z]{2,}|/Users/" docs .avalon.yml CLAUDE.md` -- expected: no match
-- `grep -rIn "tmp/\|REQ-\|_bmad" docs .avalon.yml CLAUDE.md` -- expected: no match
+- `grep -rIn "temporary-plans/\|REQ-\|_bmad" docs .avalon.yml CLAUDE.md` -- expected: no match
 - `awk -F'|' 'NR>2 && /^\| LAW-/ {print length($5)}' docs/laws/LAWS.md` -- expected: each at most 201

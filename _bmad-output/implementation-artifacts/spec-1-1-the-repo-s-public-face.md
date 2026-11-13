@@ -39,7 +39,7 @@ context:
 
 - `.gitignore` -- already ignores OS/editor files, `.serena/`, `.claude` local state, `_bmad` user layers, `.venv/`, `.env*`, caches and decision logs. Check against the criteria; do not rewrite.
 - `README.md` -- currently `# Avalon` only; replace.
-- `tmp/BRIEF.md`, `tmp/SPEC.md` -- tracked working notes; do not edit or link from the README.
+- `temporary-plans/BRIEF.md`, `temporary-plans/SPEC.md` -- tracked working notes; do not edit or link from the README.
 - GitHub `stimothy/avalon`: public. No rulesets. `allow_merge_commit` and `allow_rebase_merge` true. `squash_merge_commit_title` COMMIT_OR_PR_TITLE and message COMMIT_MESSAGES (need PR_TITLE and PR_BODY). Only the default labels exist. `private-vulnerability-reporting` is disabled.
 
 ## Tasks & Acceptance

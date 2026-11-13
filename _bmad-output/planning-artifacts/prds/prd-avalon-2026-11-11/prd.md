@@ -16,7 +16,7 @@ Avalon is an open-source developer product. Its repo is public on GitHub, and it
 The rigor here is set for a public release that strangers install (A1).
 
 It builds on two documents and does not replace them.
-Both are temporary files in `tmp/` at the top of the repo, and the user removes them after the changes have landed:
+Both are temporary files in `temporary-plans/` at the top of the repo, and the user removes them after the changes have landed:
 
 - `BRIEF.md` proposes the design and holds the reasoning behind each choice. It calls itself "a design to react to, not a finished product". This PRD adopts that design.
 - `SPEC.md` holds the requirement-level detail: 318 requirements (REQ-001 to REQ-318) and 45 acceptance scenarios (AC-01 to AC-45).
@@ -1445,7 +1445,7 @@ Each item names this PRD's answer. `addendum.md` section 6 lists each change tha
 6. REQ-196 says a target repo holds only the generated docs, the config file, and the block. Packets and votes need a `.avalon/` folder. The folder ignores itself, and this PRD reads REQ-196 as a rule about tracked files (OQ-11).
 7. REQ-096 and REQ-101 turn on a unanimous round, and no requirement says which votes make one. FR-18 defines it (OQ-35). The ledger example in `SPEC.md` shows a round table that decides after one round on a vote of four to one. That fits neither the rule nor any reading of the word, so the example needs a change.
 8. `SPEC.md` holds no requirement for the public repo, the Python floor, the pull request gates, the release workflow, merges, upgrades, or a CI recipe. FR-49 to FR-62 have no AC behind them, and most have no REQ. `SPEC.md` is the one home for requirement detail, so it needs them added.
-9. `SPEC.md` places specs and briefs outside the system, and it makes the repo root the plugin (REQ-224). `BRIEF.md` and `SPEC.md` are tracked in `tmp/` and the planning files in `_bmad-output/`, so they would reach every user who installs. FR-52 moves the plugin into a subfolder, which changes REQ-224 (OQ-39).
+9. `SPEC.md` places specs and briefs outside the system, and it makes the repo root the plugin (REQ-224). `BRIEF.md` and `SPEC.md` are tracked in `temporary-plans/` and the planning files in `_bmad-output/`, so they would reach every user who installs. FR-52 moves the plugin into a subfolder, which changes REQ-224 (OQ-39).
 10. `SPEC.md` names "the user" throughout and never defines the term. Section 2 holds the definition the user gave.
 11. `SPEC.md` section 16 holds seven placeholder standards. The user has since stated the standards in full (D6, D7), and they go beyond the placeholders: three kinds of test, mocks, no git and no network in tests, formatters and type checkers, DRY and SOLID, and no grab-bag directories. Section 16 needs to catch up.
 12. The user's rule that no test uses git meets nine script scenarios that describe real git state: AC-02, AC-14, AC-15, AC-20, AC-33, AC-34, AC-35, AC-43, and AC-44. FR-55 proves them against a fake and adds the contract tests (OQ-42).

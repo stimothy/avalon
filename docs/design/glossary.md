@@ -15,6 +15,7 @@ verified_commit: b91b169fb6b690365f6b9d3e6ed1d8e85cfcc769
 | Decision | A choice that is costly to reverse and had real alternatives. It is recorded in an ADR. |
 | Design doc | A document that describes the repo as it is, with a stamp that shows when it was last checked. |
 | Detail file | A file that carries a law's full meaning when one sentence cannot. It is named for the law, such as `LAW-000009.md`. |
+| Guideline | A standard that rests on judgment and has no gate. A reviewer checks it. It lives in a design doc and is not registered as a law. |
 | Law | A standing rule in the registry. It binds everything in the repo. |
 | Ledger | The record of every round-table decision and every confirmation by the user: `docs/laws/ledger.md`. |
 | Legacy | In the repo at the install commit. A legacy decision is recorded without a round table. |

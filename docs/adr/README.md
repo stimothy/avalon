@@ -7,4 +7,4 @@ Each ADR records one decision that is costly to reverse. Read the ADR for an are
 - [0003-development-tools.md](0003-development-tools.md): pytest, coverage, ruff, and mypy are the development tools, configured in one pyproject.toml, and the lock file is the only home of a tool version.
 - [0004-test-suites.md](0004-test-suites.md): Each test suite has its own folder and a fixed reach, and the release code reaches GitHub only through a port.
 - [0005-workflows-and-gates.md](0005-workflows-and-gates.md): Workflows hold no logic, gates run on pull requests that are ready for review, and a ruleset protects master.
-- [0006-releases.md](0006-releases.md): A pull request's label picks the version, and one workflow releases every commit newer than the latest version.
+- [0006-releases.md](0006-releases.md): A pull request's label picks the version or none, and one workflow releases every newer commit not labelled none.

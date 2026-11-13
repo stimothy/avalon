@@ -34,3 +34,6 @@ Every round-table decision and every confirmation by the user, one row each.
 | 2026-11-12 | Confirmed ADR-0004 | agent | user | none | none | none |
 | 2026-11-12 | Confirmed ADR-0005 | agent | user | none | none | none |
 | 2026-11-12 | Confirmed ADR-0006 | agent | user | none | none | none |
+| 2026-11-12 | Amended LAW-000016 as LAW-000017 | user | table | 1 | 2 approve, 3 amend, 0 reject | Sk, St, Sc: reword the law text (held for the user); all seats: state what "a check" covers, in a detail file |
+| 2026-11-12 | Amended ADR-0006: a none label releases nothing | user | table | 1 | 3 approve, 2 amend, 0 reject | J: the Context must name the user's parts; Sc: add rejected alternatives, and say whether `none` may mark a change to `plugin/**` |
+| 2026-11-12 | Amended ADR-0006: the label check refuses major below 1.0.0 | user | table | 1 | 2 approve, 3 amend, 0 reject | J: say no check can stop the merge, and ask the user to confirm the release code's refusal stays; St: one combined sentence (held for the user); Sc: use the same GitHub port |

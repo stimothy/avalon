@@ -351,7 +351,7 @@ flowchart TD
 | Integration | `tests/integration/` | The real file system, in a temporary folder, with git faked | Its own run |
 | End-to-end | `tests/e2e/` | The whole command line and the hook, in process, on a temporary folder, with git faked | Its own run |
 | Contract | `tests/contract/` | Real git, in a throwaway repo | Its own run |
-| Plugin evals | `evals/` | Claude Code, a model, and a copy of a fixture | Its own gate |
+| Plugin evals | `evals/` | Claude Code, a model, and a copy of a fixture | Run locally before a push; no workflow runs it |
 
   - One shared guard makes any process start and any network connection fail in the first three suites.
   - The fakes for the ports live in `tests/fakes/`. The contract suite runs each git fake and its real adapter through the same cases. That covers the git adapter in `devtools/` too.
@@ -391,7 +391,7 @@ flowchart TD
 - **Prevents:** Gates that run on drafts or on `master`, fork code that runs with a secret, and a required check that passes without running.
 - **Rule:**
   - `gates.yml` runs on `pull_request` into `master`, for opened, reopened, new commits, and ready for review. Every job skips a draft.
-  - Its jobs are: the four test suites on each operating system and Python in the Stack; the linter, the formatter, the type checker, and coverage; the markdown lint; `claude plugin validate`; the secret scan; the scan of tracked files (AD-1, AD-17); the Avalon lint on this repo's own docs, once the script can run it; and the plugin evals, when a change touches a skill, an agent file, the hook, or a template.
+  - Its jobs are: the four test suites on each operating system and Python in the Stack; the linter, the formatter, the type checker, and coverage; the markdown lint; `claude plugin validate`; the secret scan; the scan of tracked files (AD-1, AD-17); the Avalon lint on this repo's own docs, once the script can run it. No job runs the plugin evals; a contributor runs them locally before a push.
   - `pr.yml` runs on the same events, and on a label change or an edit to the title or body. It checks that the pull request carries exactly one of `major`, `minor`, and `patch`, scans the title and body (AD-1), and runs the release code in dry-run mode to show the version this pull request would get.
   - Each workflow has its own concurrency group for each pull request, and a newer run cancels the older one.
   - No workflow uses `pull_request_target`.
@@ -602,7 +602,7 @@ flowchart LR
 - Code runs in two places: a user's machine, and GitHub's hosted runners.
 - The gates run the first four suites on Ubuntu and macOS, on Python 3.9 and on the current release. On Ubuntu the runner installs 3.9. On macOS the 3.9 run uses the system interpreter, and `uv` is told not to download one. Each 3.9 job first checks that its interpreter reports 3.9, and fails if it does not.
 - The lint, format, type, and coverage gates run once, on Ubuntu and the current Python.
-- The plugin evals run with a cost limit. Their model credential is a repository secret.
+- The plugin evals run on the contributor's machine and use that person's own Claude Code login. No workflow holds a model credential.
 - The owner applies the repository settings in build step 1, in three stages.
   - Before the first pull request: a pull request is required, merges are squash only with the pull request's title and description as the message, the three version labels exist, and private vulnerability reporting is on.
   - With each workflow: its job becomes a required check, and the up-to-date rule comes on with the first.

@@ -6,4 +6,5 @@ Each design doc describes the repo as it is. Read the overview before the first 
 - [engineering-standards.md](engineering-standards.md): The guidelines for code, tests, and design that a reviewer judges. Read it before writing code.
 - [gates-workflow.md](gates-workflow.md): What `gates.yml` runs and when, the one job to require as a check, the Python and runner choices, and how Dependabot is set up.
 - [release.md](release.md): How the release code works out versions from tags and pull request labels, what a run does, the dry run, and what the release notes hold.
+- [repository-settings.md](repository-settings.md): The GitHub settings of this repo, the command that applies each one, and the rule that an agent runs such a command only after the owner approves it.
 - [glossary.md](glossary.md): Definitions of the terms this repo uses. Search it for a term you do not know.

@@ -28,7 +28,7 @@ The primary technologies are:
 - Their configuration lives in the single `pyproject.toml` at the repo root.
 - A virtual environment named `.venv`, which git ignores, holds them.
 - Coverage is line coverage over the Python that LAW-000014 measures.
-- Each suite's gate job collects coverage data, except the eval job, which collects none.
+- Each gate job that runs a suite collects coverage data; eval runs collect none.
 - One job combines the data from every other suite.
 - The unit run is timed against its budget with coverage on.
 
@@ -68,4 +68,5 @@ The primary technologies are:
 
 - 2026-11-12 (agent, table): Created. Recorded the development tools, their one configuration file, and the lock file as the only home of a tool version.
 - 2026-11-12 (user): Confirmed the decisions of this ADR.
+- 2026-11-13 (user, table): Amended. No workflow runs the eval suite, so there is no eval job; eval runs collect no coverage.
 - 2026-11-13 (user, table): Amended. Linked the version home of a tool that `uv.lock` cannot lock to ADR-0005.

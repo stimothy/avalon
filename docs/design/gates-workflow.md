@@ -22,6 +22,8 @@ It runs on a pull request into `master` when the pull request is opened, reopene
 | `plugin` | `claude plugin validate` on the repo root, which holds the marketplace file, and on `plugin/`. | When a file under `plugin/` changed |
 | `all-green` | The verdict. | Always, after every other job, except on a draft |
 
+No job runs the evals, and no workflow calls a model or holds a model credential. A contributor runs the evals locally before a push ([ADR-0004](../adr/0004-test-suites.md)).
+
 ## The check to require
 
 `all-green` is the one job to require in the ruleset on `master`. It runs after every other job, even when one failed, and fails unless each job succeeded or was skipped because the filter said it did not apply (`devtools/gates/verdict.py`). Requiring it covers every other job, so a new job needs no change to the ruleset as long as `all-green` lists it in `needs`.

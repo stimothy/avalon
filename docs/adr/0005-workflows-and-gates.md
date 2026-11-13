@@ -1,6 +1,6 @@
 ---
 adr: 0005
-summary: Workflows hold no logic, gates run only on a pull request that is ready for review, two workflows gate a pull request with one job giving the verdict, and a ruleset protects master.
+summary: Workflows hold no logic, gates run only on a pull request that is ready for review, two workflows gate a pull request with one job giving the verdict, gitleaks does the secret scan, and a ruleset protects master.
 covers: [.github/workflows/**, devtools/**]
 origin: user
 ---
@@ -15,8 +15,9 @@ The primary technologies are:
 - GitHub Actions workflows
 - a GitHub ruleset on `master`
 - Python under `devtools/`
+- gitleaks, which scans for secrets
 
-The reason for each choice below is unknown, except where the text gives one. The decision on when gates run (the second heading) came from the user. The others came from the agent.
+The reason for each choice below is unknown, except where the text gives one. The decision on when gates run (the second heading) came from the user. The choice of `gitleaks` for the secret scan also came from the user. The others came from the agent.
 
 ## Decision
 
@@ -38,7 +39,8 @@ A gate reads every workflow and fails on any of these:
 - an action not pinned to a full commit SHA;
 - a workflow that does not state its permissions;
 - a write permission outside the job in `release.yml`;
-- a locked tool installed any way but from the lock file.
+- a locked tool installed any way but from the lock file;
+- `gitleaks` installed any way but the two that the secret scan allows.
 
 ### Gates run only on a pull request that is ready for review
 
@@ -52,6 +54,21 @@ The gates run on a pull request into `master` when it is opened, reopened, given
 - A newer run of a workflow on the same pull request cancels the older run, whatever event started it.
 - The final job of `gates.yml` fails unless every other job succeeded or was skipped by its own `if:`.
 - A gate that applies to some changes is a job with an `if:`, not a workflow with a path filter.
+
+### The secret scan is done by gitleaks
+
+A gate in `gates.yml` scans the tracked files for a secret with `gitleaks`. The gate fails on a finding. Code under `devtools/` runs the tool through the one adapter that starts processes, and the unit tests replace that adapter with a fake.
+
+- The gate scans only the files that git tracks.
+- A developer and a workflow run the same gate command and the same version.
+- The command fails with a clear message when `gitleaks` is missing.
+
+`uv.lock` cannot lock `gitleaks`, because it is not a Python package. Its version lives in exactly one file under `devtools/`. That file's name is unknown until the workflow is written. No other ADR, doc, or workflow states the version.
+
+A workflow installs `gitleaks` in one of two ways:
+
+- a `devtools/` command that reads the version file and checks the checksum;
+- an action pinned to a full commit SHA.
 
 ### A ruleset protects `master`
 
@@ -68,6 +85,9 @@ The gates run on a pull request into `master` when it is opened, reopened, given
 - The ruleset is set by hand and no gate checks it, so a drift in the settings goes unseen until someone looks.
 - With no bypass actors, the owner cannot merge past a failing gate.
 - The release workflow of ADR-0006 is the only workflow that runs on a push to `master`.
+- GitHub's own secret scanning cannot fail a local run, so the scan is a gate.
+- The version of `gitleaks` changes in its one file under `devtools/` and nowhere else.
+- The check that no doc states the version of `gitleaks` is a reviewer's judgment.
 
 ## Alternatives rejected
 
@@ -86,8 +106,13 @@ The gates run on a pull request into `master` when it is opened, reopened, given
 - **Rejected: merge commits or rebase merges.** The reason is unknown.
 - **Rejected: the default squash message.** The reason is unknown.
 - **Rejected: no up-to-date requirement.** The reason is unknown.
+- **Rejected: trufflehog.** The reason is unknown.
+- **Rejected: detect-secrets.** The reason is unknown.
+- **Rejected: a pattern scan written under `devtools/`.** The reason given is that this repo would maintain its own rules.
+- **Rejected: GitHub's own secret scanning and push protection, with no gate.** The reason given is that it is not a gate and cannot fail a local run.
 
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded workflows with no logic, the pull-request trigger of the gates, the two gating workflows with one verdict job, and the ruleset on master.
 - 2026-11-12 (user): Confirmed the decisions of this ADR.
+- 2026-11-13 (user, table): Amended. The secret scan is done by gitleaks. Its version lives in one file under `devtools/`, and a workflow installs it only by a checksum check or a pinned action.

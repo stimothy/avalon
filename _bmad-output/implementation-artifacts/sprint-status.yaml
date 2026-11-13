@@ -44,7 +44,7 @@ development_status:
   1-6-a-stand-in-round-table-hears-the-tooling-and-delivery-decisi: review
   1-7-a-contributor-can-set-up-the-tools-and-run-each-suite: review
   1-8-a-person-can-install-the-plugin-from-the-repo: backlog
-  1-9-a-gate-scans-tracked-files-for-plan-citations-home-paths-and: backlog
+  1-9-a-gate-scans-tracked-files-for-plan-citations-home-paths-and: review
   1-10-gate-logic-lives-in-tested-code: backlog
   1-11-the-gates-run-on-a-pull-request-that-is-ready-for-review: backlog
   1-12-release-code-works-out-the-next-version: backlog

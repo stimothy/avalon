@@ -22,7 +22,7 @@ default-groups = ["dev"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["tests"]
+pythonpath = [".", "tests"]
 addopts = "--strict-markers --strict-config -ra"
 norecursedirs = ["_bmad", "_bmad-output", "temporary-plans", ".claude", ".venv", "node_modules"]
 
@@ -44,9 +44,9 @@ extend-exclude = ["_bmad", "_bmad-output", "temporary-plans", ".claude"]
 select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "N", "RUF"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["suite_guard"]
+known-first-party = ["suite_guard", "devtools", "fakes"]
 
 [tool.mypy]
 python_version = "3.10"
 strict = true
-files = ["tests"]
+files = ["tests", "devtools"]

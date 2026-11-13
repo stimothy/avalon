@@ -1,8 +1,7 @@
 ---
-summary: What `gates.yml` runs and when, the one job to require as a check, the Python and runner choices, and how Dependabot is set up.
-covers: [.github/**, devtools/gates/**]
+summary: What `gates.yml`, `pr.yml`, and `release.yml` run and when, the jobs to require as checks, the Python and runner choices, and how Dependabot is set up.covers: [.github/**, devtools/gates/**]
 verified: 2026-11-13
-verified_commit: 88d1415a2345a8a913ac4d85a68b9a0c18ea9327
+verified_commit: 2e8c0fb00d73bebf6e7ec47cf0ad2ce2752569b7
 ---
 # The gates workflow
 
@@ -36,6 +35,22 @@ Jobs are few and long, not many and short, to stay within the limit on jobs that
 - A job on Python 3.9 first runs `python -m devtools.gates interpreter --expect 3.9`, which fails when the interpreter reports another version.
 - On macOS the 3.9 job uses `/usr/bin/python3` and sets `UV_PYTHON_DOWNLOADS=never`, so `uv` downloads no interpreter. The `macos-15` runner's system interpreter reports 3.9.6, so no other runner or install is in use.
 - Every job installs the Python tools with `uv sync --locked` and the Node tools with `npm ci`. `claude plugin validate` runs from the Claude Code package in `package-lock.json`.
+
+## The pull request workflow
+
+`.github/workflows/pr.yml` checks the pull request itself. It runs on a pull request into `master` when the pull request is opened, reopened, given more commits, marked ready for review, labelled, unlabelled, or has its title or body edited. A draft runs no job. A newer run on the same pull request cancels the older one, in a group of its own, so `gates.yml` is never touched.
+
+Its one job, `pr`, is the check to require next to `all-green`. It runs, in order:
+
+1. `python -m devtools.gates pr-labels --pr N`, which fails unless the pull request carries exactly one of `major`, `minor`, `patch`, and `none`, and fails `major` while no version exists or the latest is below `v1.0.0`, unless the repository variable `ALLOW_PRE_1_MAJOR` is `true` (`devtools/gates/pr_labels.py`, which calls `policy.major_refusal`).
+2. `python -m devtools.gates pull-request`, which scans the title and the body for plan citations.
+3. `python -m devtools.release dry-run --pr N`, which shows the version the pull request would get.
+
+A workflow token cannot read repository variables through `gh`, so the workflow passes `ALLOW_PRE_1_MAJOR` in the environment, and `RealGh.variable` reads the environment first and `gh` second.
+
+## The release workflow
+
+`.github/workflows/release.yml` runs on a push to `master` and is the only workflow that does. All its runs share the group `release`, and a later run never cancels one in progress. Its one job, `release`, is the only job with a write permission (`contents: write`). It checks out the full history and runs `python -m devtools.release release --ref` the pushed commit. See [the release code](release.md).
 
 ## gitleaks
 

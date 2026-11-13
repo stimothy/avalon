@@ -17,12 +17,10 @@ It runs on a pull request into `master` when the pull request is opened, reopene
 | Job | Runs | When |
 |---|---|---|
 | `changes` | The changed-path filter, which sets the `docs` and `plugin` outputs. | Always |
-| `suites` | The four test suites, on Ubuntu and macOS, each on Python 3.9 and on 3.14. | Always |
-| `code` | The linter, the formatter, the type checker, and coverage, once, on Ubuntu and Python 3.14. | Always |
+| `suites` | One job for each pair of Ubuntu or macOS and Python 3.9 or 3.14, four in all. Each runs the four test suites one after another. | Always |
+| `code` | The linter, the formatter, the type checker, coverage, the scan of tracked files, the workflow check, and the secret scan, once, on Ubuntu and Python 3.14. | Always |
 | `docs` | The markdown lint. | When a markdown file or a file under `docs/` changed |
-| `plugin` | `claude plugin validate`. | When a file under `plugin/` changed |
-| `secrets` | The secret scan with `gitleaks`. | Always |
-| `scans` | The scan of tracked files and the workflow check. | Always |
+| `plugin` | `claude plugin validate` on the repo root, which holds the marketplace file, and on `plugin/`. | When a file under `plugin/` changed |
 | `all-green` | The verdict. | Always, after every other job, except on a draft |
 
 ## The check to require
@@ -30,6 +28,8 @@ It runs on a pull request into `master` when the pull request is opened, reopene
 `all-green` is the one job to require in the ruleset on `master`. It runs after every other job, even when one failed, and fails unless each job succeeded or was skipped because the filter said it did not apply (`devtools/gates/verdict.py`). Requiring it covers every other job, so a new job needs no change to the ruleset as long as `all-green` lists it in `needs`.
 
 ## Python and runners
+
+Jobs are few and long, not many and short, to stay within the limit on jobs that run at once. A suite that fails stops the later suites of its job.
 
 - Every runner label is pinned: `ubuntu-24.04` and `macos-15`.
 - The "current release" of Python is written as `3.14`, in the `suites` matrix and in `code`.
@@ -39,7 +39,7 @@ It runs on a pull request into `master` when the pull request is opened, reopene
 
 ## gitleaks
 
-`devtools/gates/gitleaks_pin.py` holds the one version and one checksum for each platform. `python -m devtools.gates install-gitleaks` downloads that version, fails if the checksum differs, and puts it on the path. `secrets` runs that command, then the scan.
+`devtools/gates/gitleaks_pin.py` holds the one version and one checksum for each platform. `python -m devtools.gates install-gitleaks` downloads that version, fails if the checksum differs, and puts it on the path. `code` runs that command, then the scan.
 
 ## Dependabot
 

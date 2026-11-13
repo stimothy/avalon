@@ -169,6 +169,4 @@ Rewording of the user's sentence in C:
 
 - Steward: one combined sentence in place of the release code's refusal and the user's added sentence: "While no version exists or the latest version is below 1.0.0, the label check and the release code each refuse `major` unless a repository variable that only the owner sets allows it. The variable's name is unknown until it is chosen."
 
-A question for the user, recorded but not blocking:
-
-- Confirm that the release code's refusal stays. The screening read C this way, and the user's sentence removes nothing.
+Decided by the user's delegation: the release code's refusal stays, as the screening read it. The user's sentence removes nothing, and a label or the variable can change after the merge.

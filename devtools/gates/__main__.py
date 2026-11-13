@@ -4,14 +4,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import platform
 import sys
 from pathlib import Path
 
+from devtools.adapters import download
 from devtools.adapters.gh import GhError, RealGh
 from devtools.adapters.git import GitError, RealGit
 from devtools.adapters.process import RealProcess
 from devtools.gates import (
     changed_paths,
+    gitleaks_install,
+    interpreter,
     secret_scan,
     text_scan,
     tracked_scan,
@@ -33,7 +37,12 @@ def _report(lines: list[str]) -> int:
     return 1 if lines else 0
 
 
-def run(argv: list[str], root: Path) -> int:
+def run(
+    argv: list[str],
+    root: Path,
+    fetch: gitleaks_install.Fetch = download.fetch,
+    extract: gitleaks_install.Extract = download.extract_member,
+) -> int:
     parser = argparse.ArgumentParser(prog="devtools.gates")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("tracked")
@@ -50,6 +59,11 @@ def run(argv: list[str], root: Path) -> int:
     verdict_parser.add_argument("--filter-job", default="changes")
     verdict_parser.add_argument("--gate", action="append", default=[], help="job=output")
     sub.add_parser("workflows")
+    install = sub.add_parser("install-gitleaks")
+    install.add_argument("--dest", required=True)
+    install.add_argument("--path-file", help="a file to which the install folder is appended")
+    python = sub.add_parser("interpreter")
+    python.add_argument("--expect", required=True, help="the major.minor version, such as 3.9")
     args = parser.parse_args(argv)
 
     process = RealProcess()
@@ -66,6 +80,21 @@ def run(argv: list[str], root: Path) -> int:
     except (GitError, GhError) as error:
         print(error, file=sys.stderr)
         return 2
+    if args.command == "interpreter":
+        return _report(interpreter.check(args.expect, tuple(sys.version_info[:3])))
+    if args.command == "install-gitleaks":
+        try:
+            installed = gitleaks_install.install(
+                fetch, extract, platform.system(), platform.machine(), args.dest
+            )
+        except (gitleaks_install.InstallError, OSError) as error:
+            print(error, file=sys.stderr)
+            return 2
+        if args.path_file:
+            with open(args.path_file, "a", encoding="utf-8") as handle:
+                handle.write(str(Path(installed).parent) + "\n")
+        print(installed)
+        return 0
     if args.command == "verdict":
         gated = dict(item.split("=", 1) for item in args.gate)
         needs = json.loads(args.needs)

@@ -1,0 +1,126 @@
+name: gates
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, reopened, synchronize, ready_for_review]
+
+concurrency:
+  group: gates-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
+      plugin: ${{ steps.filter.outputs.plugin }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --locked
+      - id: filter
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: uv run python -m devtools.gates changed-paths --pr ${{ github.event.pull_request.number }} >> "$GITHUB_OUTPUT"
+
+  suites:
+    if: github.event.pull_request.draft == false
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-24.04, python: "3.9", expect: "3.9", downloads: automatic}
+          - {os: ubuntu-24.04, python: "3.14", expect: "3.14", downloads: automatic}
+          - {os: macos-15, python: /usr/bin/python3, expect: "3.9", downloads: never}
+          - {os: macos-15, python: "3.14", expect: "3.14", downloads: automatic}
+    env:
+      UV_PYTHON: ${{ matrix.config.python }}
+      UV_PYTHON_DOWNLOADS: ${{ matrix.config.downloads }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv run --no-project python -m devtools.gates interpreter --expect ${{ matrix.config.expect }}
+      - run: uv sync --locked
+      - run: uv run pytest tests/unit
+      - run: uv run pytest tests/integration
+      - run: uv run pytest tests/e2e
+      - run: uv run pytest tests/contract
+
+  code:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-24.04
+    env:
+      UV_PYTHON: "3.14"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --locked
+      - run: uv run ruff check
+      - run: uv run ruff format --check
+      - run: uv run mypy
+      - run: uv run coverage run -m pytest tests/unit
+      - run: uv run coverage run -m pytest tests/integration
+      - run: uv run coverage combine
+      - run: uv run coverage report
+      - run: uv run python -m devtools.gates tracked
+      - run: uv run python -m devtools.gates workflows
+      - run: uv run python -m devtools.gates install-gitleaks --dest "$RUNNER_TEMP/bin" --path-file "$GITHUB_PATH"
+      - run: uv run python -m devtools.gates secrets
+
+  docs:
+    needs: changes
+    if: github.event.pull_request.draft == false && needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: node_modules/.bin/markdownlint-cli2
+
+  plugin:
+    needs: changes
+    if: github.event.pull_request.draft == false && needs.changes.outputs.plugin == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: node_modules/.bin/claude plugin validate .
+      - run: node_modules/.bin/claude plugin validate plugin
+
+  all-green:
+    needs: [changes, suites, code, docs, plugin]
+    if: always() && github.event.pull_request.draft == false
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - run: uv sync --locked
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: uv run python -m devtools.gates verdict --needs "$NEEDS" --gate docs=docs --gate plugin=plugin

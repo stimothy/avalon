@@ -37,7 +37,7 @@ story_location: _bmad-output/implementation-artifacts
 development_status:
   epic-1: in-progress
   1-1-the-repo-s-public-face: review
-  1-2-this-repo-s-own-avalon-tree-created-by-hand: backlog
+  1-2-this-repo-s-own-avalon-tree-created-by-hand: review
   1-3-the-engineering-standards-refined-with-the-user: backlog
   1-4-a-stand-in-round-table-hears-the-standards-that-are-laws: backlog
   1-5-a-stand-in-round-table-hears-the-architecture: backlog

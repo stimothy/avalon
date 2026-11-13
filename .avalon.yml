@@ -1,0 +1,13 @@
+root: docs
+profile: other
+system_version: 1
+installed_at: 2026-11-13T04:39:30Z
+install_commit: b91b169fb6b690365f6b9d3e6ed1d8e85cfcc769
+law_max_chars: 200
+registry_max_laws: 100
+doc_max_lines: 400
+diagram_max_nodes: 15
+image_max_kb: 500
+image_formats: [png, jpeg, svg, webp]
+sentence_max_words: 40
+scopes: [all, laws, adr, design, docs]

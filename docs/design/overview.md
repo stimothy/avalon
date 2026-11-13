@@ -27,6 +27,8 @@ The repo holds its own governed docs and the files that describe and license it.
 | `CLAUDE.md` | The managed block that loads the registry into every session. |
 | `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md` | The public face of the repo. |
 | `CONTRIBUTING.md` | The setup command, the command for each test suite, and the check commands. |
+| `.github/` | The gates workflow and the Dependabot config. See [the gates workflow](gates-workflow.md). |
+| `devtools/` | The Python code the gates run: the gate commands and the adapters they use. |
 | `tests/` | The `unit/`, `integration/`, `e2e/`, `contract/`, and `fakes/` folders, the shared guard, and the unit time budget. |
 | `pyproject.toml`, `uv.lock` | The Python development tools, their one configuration, and their locked versions. |
 | `package.json`, `package-lock.json`, `.markdownlint-cli2.jsonc` | The markdown lint, its locked version, and its rules. |

@@ -2,6 +2,7 @@
   "private": true,
   "description": "Markdown lint for the Avalon repo. This project builds no package.",
   "devDependencies": {
+    "@anthropic-ai/claude-code": "2.1.323",
     "markdownlint-cli2": "0.24.1"
   }
 }

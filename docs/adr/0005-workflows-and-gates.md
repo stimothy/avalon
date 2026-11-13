@@ -73,7 +73,7 @@ A workflow installs `gitleaks` in one of two ways:
 ### A ruleset protects `master`
 
 - A ruleset on `master` requires a pull request, the final job of `gates.yml`, the label check and the title-and-body scan of `pr.yml`, and a branch that is up to date.
-- It allows squash merges only, and the squash message is the pull request's title and description.
+- It allows squash merges only, and the squash message is the pull request's title, with no body.
 - It has no bypass actors, the owner included.
 - The owner sets it by hand in the repository settings, and no gate checks it.
 
@@ -84,6 +84,7 @@ A workflow installs `gitleaks` in one of two ways:
 - A pin to a commit SHA changes only by a pull request.
 - The ruleset is set by hand and no gate checks it, so a drift in the settings goes unseen until someone looks.
 - With no bypass actors, the owner cannot merge past a failing gate.
+- The squash commit holds only the title, so the pull request's description is not in git history. `pr.yml` still scans the body, and the reason for that is unknown.
 - The release workflow of ADR-0006 is the only workflow that runs on a push to `master`.
 - GitHub's own secret scanning cannot fail a local run, so the scan is a gate.
 - The version of `gitleaks` changes in its one file under `devtools/` and nowhere else.
@@ -105,6 +106,7 @@ A workflow installs `gitleaks` in one of two ways:
 - **Rejected: classic branch protection.** The reason is unknown.
 - **Rejected: merge commits or rebase merges.** The reason is unknown.
 - **Rejected: the default squash message.** The reason is unknown.
+- **Rejected: the pull request's title and description as the squash message.** The reason is unknown.
 - **Rejected: no up-to-date requirement.** The reason is unknown.
 - **Rejected: trufflehog.** The reason is unknown.
 - **Rejected: detect-secrets.** The reason is unknown.
@@ -116,3 +118,4 @@ A workflow installs `gitleaks` in one of two ways:
 - 2026-11-12 (agent, table): Created. Recorded workflows with no logic, the pull-request trigger of the gates, the two gating workflows with one verdict job, and the ruleset on master.
 - 2026-11-12 (user): Confirmed the decisions of this ADR.
 - 2026-11-13 (user, table): Amended. The secret scan is done by gitleaks. Its version lives in one file under `devtools/`, and a workflow installs it only by a checksum check or a pinned action.
+- 2026-11-13 (user, table): Amended. The squash message is the pull request's title alone, with no body.

@@ -201,7 +201,7 @@ These come from the architecture spine. Each one shapes at least one story.
 - AD-18: `gates.yml` and `pr.yml` gate a pull request, and one final job gives the verdict. A ruleset on `master` requires a pull request, both checks, an up-to-date branch, and squash merges.
 - AD-20: `release.yml` catches up every unreleased commit, makes the tag and the GitHub release in one call, and refuses `major` below `v1.0.0` unless the owner allows it.
 - Stack: the spine's Stack table pins every tool version. A story that adds a tool uses that version.
-- The owner applies the repository settings in build step 1, in stages. The parts that need no workflow are on before the first pull request. Each job becomes a required check when its workflow lands. The secret for the evals is stored last, and only the owner enters its value.
+- The owner applies the repository settings in build step 1, in stages. The parts that need no workflow are on before the first pull request. Each job becomes a required check when its workflow lands.
 
 **Done, for every story**
 
@@ -406,7 +406,7 @@ So that I know what Avalon is, on what terms I may use it, and that nothing priv
 **Given** the repo on GitHub, before this story's pull request is opened
 **When** the owner has applied the first settings, or has approved the session's commands for them
 **Then** a change reaches `master` only through a pull request
-**And** merges are squash only, with the pull request's title and description as the commit message
+**And** merges are squash only, with the pull request's title as the commit message
 **And** the labels `major`, `minor`, and `patch` exist, and this pull request carries one
 **And** private vulnerability reporting is on, so that the route in the code of conduct works.
 
@@ -966,12 +966,8 @@ So that the gates and the release path are proven before the first line of plugi
 **Given** the repository settings from Stories 1.1, 1.11, and 1.13
 **When** they are checked against the repo
 **Then** a ruleset on `master` requires a pull request, the final job of `gates.yml`, the job of `pr.yml`, and a branch that is up to date
-**And** it allows squash merges only, with the pull request's title and description as the commit message
+**And** it allows squash merges only, with the pull request's title as the commit message
 **And** the four labels `major`, `minor`, `patch`, and `none` exist (the owner creates `none` by hand, because the first three exist from Story 1.1), and private vulnerability reporting is on.
-
-**Given** the credential for the plugin evals
-**When** the owner stores it as a repository secret
-**Then** only the owner has entered its value, and no session and no file has held it.
 
 **Given** a design doc of this repo
 **When** a maintainer reads it
@@ -2033,12 +2029,8 @@ So that the behaviours the Claude Code docs leave unstated are proven and not as
 
 **Given** a pull request that changes a skill, an agent file, the hook, or a template
 **When** it is ready for review
-**Then** the plugin evals run as a job of `gates.yml`, with a cost limit, and with the credential from the repository secret
-**And** on any other pull request the job is skipped, and the final job still passes.
-
-**Given** a pull request from a fork that needs the evals
-**When** the gates run
-**Then** the final job fails until a maintainer moves the change to a branch of this repo.
+**Then** the plugin evals run on the contributor's own machine before the push, and no workflow calls a model or holds a credential for them
+**And** the contributor guide says which command runs them and when.
 
 **Given** the cases in this story
 **When** they are run on earlier Claude Code versions
@@ -3523,14 +3515,13 @@ The recorded install commit stays as a record. It is still written once, and the
 | 1.3 | To accept or change the wording, the kind, and the check of each standard | Stories 1.4 to 1.14 |
 | 1.5, 1.6 | Whether to confirm the outcome for a record an agent proposed | Nothing |
 | 1.11, 1.13 | To make the new job a required check, or to approve the command for it | Nothing. The next pull request is then held to it. |
-| 1.14 | To store the secret for the evals | The plugin evals in Story 4.4 |
 | 2.1, 2.2 | Only when a table would reword or reject a core law: to accept, counter, or direct | That law's ratification |
 | 3.17 | To approve the first checksum | The seal, and the Avalon lint gate |
 | 8.8 | To agree that the plans can be deleted | The deletion |
 | 8.9 | To set the variable that allows `major` | `v1.0.0` |
 | 1.4 to 2.2 | The go-ahead for a sixth stand-in sitting, if one is needed | That sitting |
 
-For the repository settings, a design doc records the command that applies each one. An agent runs such a command only after the owner approves it, and only the owner enters the value of a secret.
+For the repository settings, a design doc records the command that applies each one. An agent runs such a command only after the owner approves it.
 
 **Why.**
 
@@ -3569,10 +3560,10 @@ A chair may split a slate that is too large for one packet. A sixth sitting, and
 
 **The answer.** The ruleset comes on in stages.
 
-- Before the first pull request: a pull request is required, merges are squash only with the pull request's title and description as the message, the three version labels exist, and private vulnerability reporting is on (Story 1.1).
+- Before the first pull request: a pull request is required, merges are squash only with the pull request's title as the message, the three version labels exist, and private vulnerability reporting is on (Story 1.1).
 - When `gates.yml` has merged: its final job is a required check, and a branch must be up to date (Story 1.11).
 - When `pr.yml` has merged: its job is a required check (Story 1.13).
-- Last: the secret for the evals, a check of every setting, and the drill (Story 1.14).
+- Last: a check of every setting, and the drill (Story 1.14).
 
 Until a gate exists, a pull request says which of that gate's checks its author ran by hand. Every pull request carries a version label from the first one.
 

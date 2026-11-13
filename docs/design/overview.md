@@ -26,8 +26,8 @@ The repo holds its own governed docs and the files that describe and license it.
 | `.avalon.yml` | The config file: root, profile, version, install record, caps, and scope list. |
 | `CLAUDE.md` | The managed block that loads the registry into every session. |
 | `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md` | The public face of the repo. |
-| `CONTRIBUTING.md` | The setup command, the command for each test suite, and the check commands. |
-| `.github/` | The gates workflow and the Dependabot config. See [the gates workflow](gates-workflow.md). |
+| `CONTRIBUTING.md` | The setup command, the command for each test suite, the check commands, and how to propose a change. |
+| `.github/` | The workflows, the Dependabot config, the code owner file, and the issue and pull request templates. See [the gates workflow](gates-workflow.md) and [the repository settings](repository-settings.md). |
 | `devtools/` | The Python code the gates run: the gate commands, the release code, and the adapters they use. |
 | `tests/` | The `unit/`, `integration/`, `e2e/`, `contract/`, and `fakes/` folders, the shared guard, and the unit time budget. |
 | `pyproject.toml`, `uv.lock` | The Python development tools, their one configuration, and their locked versions. |

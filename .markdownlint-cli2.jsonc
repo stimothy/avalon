@@ -1,0 +1,19 @@
+{
+  "globs": ["**/*.md"],
+  "ignores": [
+    "node_modules/**",
+    ".venv/**",
+    ".claude/**",
+    ".avalon/**",
+    "_bmad/**",
+    "_bmad-output/**",
+    "temporary-plans/**"
+  ],
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD041": false,
+    "MD059": false,
+    "MD060": false
+  }
+}

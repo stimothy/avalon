@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "Markdown lint for the Avalon repo. This project builds no package.",
+  "devDependencies": {
+    "markdownlint-cli2": "0.24.0"
+  }
+}

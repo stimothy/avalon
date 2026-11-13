@@ -12,7 +12,7 @@ Avalon collects no usage data and opens no network connection.
 
 ## Contributing
 
-Everyone taking part is asked to follow the [code of conduct](CODE_OF_CONDUCT.md).
+To set up the tools and run the tests, see [CONTRIBUTING.md](CONTRIBUTING.md). Everyone taking part is asked to follow the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Licence
 

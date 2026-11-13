@@ -635,6 +635,12 @@ So that a later contributor can see why these tools, these suites, and this rele
 **When** the ADR states it
 **Then** the ADR names the tool and what it is for, and the lock file is the only home of its version.
 
+**Given** the law held from Story 1.4: "Python this repo authors passes the repo's linter, formatter, and type checker, which the tool-choice ADR names." (scope `code`, origin `user`, matter `.avalon/matters/standards-laws/proposal.md`)
+**When** the tool-choice ADR is adopted
+**Then** the held law goes to the table in the same sitting, as the user's proposal, and is registered with the next law ID if the table adopts it
+**And** the Story 1.4 sitting already voted 5 approve, 0 amend, 0 reject on it, and held it only because the ADR it names did not exist
+**And** once it is registered or rejected, the matter folder `.avalon/matters/standards-laws/` is removed.
+
 **Given** the repo when this story is done
 **When** its ledger is read
 **Then** every law and every ADR in the repo, other than the nine draft core laws and `0002-documentation-system.md`, has a row that shows a table's decision or the user's.

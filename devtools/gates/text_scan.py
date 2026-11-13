@@ -14,7 +14,9 @@ _PLAN_ID = re.compile(r"(?<![A-Za-z0-9_])(?:" + "|".join(PLAN_PREFIXES) + r")-\d
 _PLAN_FOLDER = re.compile(
     r"(?<![\w-])(?:" + "|".join(re.escape(f) for f in skip_list.PLAN_FOLDERS) + r")(?![\w-])"
 )
-_HOME_PATH = re.compile(r"(?:/Users/|/home/)[^/\s`'\"]+|[A-Za-z]:\\Users\\[^\\\s`'\"]+")
+# Built in pieces, so this file does not hold a home path itself.
+_UNIX_HOMES = "|".join(f"/{name}/" for name in ("Us" + "ers", "ho" + "me"))
+_HOME_PATH = re.compile(rf"(?:{_UNIX_HOMES})[^/\s`'\"]+|[A-Za-z]:\\{'Us' + 'ers'}\\[^\\\s`'\"]+")
 
 
 @dataclass(frozen=True)

@@ -31,7 +31,7 @@ If the table treats a chair consequent edit as a rewording of the user's proposa
 - **C, placement.** C's sentence says "the owner's repository variable", which refers back to the variable that decision 2 introduces. So it goes in decision 2, right after the release code's refusal. In decision 1 it would come before the variable is defined.
 - **B and C together.** No conflict. `none` and the `major` refusal touch different labels.
 - **ADR-0001.** ADR-0001 bars a script command that tags. ADR-0006's release code sits under `devtools/`, outside `plugin/**`. Neither B nor C moves it, so ADR-0001 is not reached.
-- **Outside `docs/`.** The planning files under `_bmad-output/` name three labels, for example Stories 1.12 and 1.13 in `epics.md`. They are not docs under these laws, but the stories need updating before they are built. The deferred item on the first release run, whose commit may carry no version label, may be met by labelling that pull request `none`.
+- **Outside `docs/`.** The planning files outside the docs tree name three labels, for example Stories 1.12 and 1.13 in `epics.md`. They are not docs under these laws, but the stories need updating before they are built. The deferred item on the first release run, whose commit may carry no version label, may be met by labelling that pull request `none`.
 
 ## The slate
 

@@ -38,6 +38,7 @@ The primary technologies are:
 - No ADR, doc, or workflow states the version of a tool that `uv.lock` locks.
 - Workflows install the tools only from the lock file.
 - The workflow gate of ADR-0005 fails a workflow that installs a locked tool any other way.
+- A tool that `uv.lock` cannot lock, such as `gitleaks`, has its version home in the ADR that owns it (ADR-0005).
 - A reviewer checks the ADRs and docs.
 
 ## Consequences
@@ -67,3 +68,4 @@ The primary technologies are:
 
 - 2026-11-12 (agent, table): Created. Recorded the development tools, their one configuration file, and the lock file as the only home of a tool version.
 - 2026-11-12 (user): Confirmed the decisions of this ADR.
+- 2026-11-13 (user, table): Amended. Linked the version home of a tool that `uv.lock` cannot lock to ADR-0005.

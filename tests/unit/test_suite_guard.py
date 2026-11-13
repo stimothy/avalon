@@ -62,3 +62,16 @@ def test_guard_covers_the_first_three_suites_only(suite: str | None, expected: b
 @pytest.mark.parametrize(("elapsed", "expected"), [(9.9, False), (10.0, False), (10.1, True)])
 def test_budget_is_exceeded_only_above_ten_seconds(elapsed: float, expected: bool) -> None:
     assert suite_guard.budget_exceeded(elapsed) is expected
+
+
+@pytest.fixture(scope="module")
+def popen_during_module_fixture_setup() -> object:
+    return subprocess.Popen.__init__
+
+
+def test_the_guard_is_on_during_higher_scoped_fixture_setup(
+    popen_during_module_fixture_setup: object,
+) -> None:
+    original = suite_guard.ORIGINAL_POPEN_INIT
+
+    assert popen_during_module_fixture_setup is not original

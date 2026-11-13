@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from collections.abc import Iterator
+from collections.abc import Generator
 
 import pytest
 
@@ -12,13 +12,15 @@ import suite_guard
 _state = {"started": 0.0}
 
 
-@pytest.fixture(autouse=True)
-def _guard(request: pytest.FixtureRequest) -> Iterator[None]:
-    if suite_guard.is_guarded(suite_guard.suite_of(request.path)):
+@pytest.hookimpl(wrapper=True)
+def pytest_runtest_protocol(
+    item: pytest.Item, nextitem: pytest.Item | None
+) -> Generator[None, object, object]:
+    """Guard a test's whole life: fixture setup, the call, and fixture teardown."""
+    if suite_guard.is_guarded(suite_guard.suite_of(item.path)):
         with suite_guard.blocked():
-            yield
-    else:
-        yield
+            return (yield)
+    return (yield)
 
 
 def pytest_sessionstart(session: pytest.Session) -> None:

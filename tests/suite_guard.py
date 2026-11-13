@@ -16,6 +16,7 @@ from typing import Any
 
 GUARDED_SUITES = frozenset({"unit", "integration", "e2e"})
 UNIT_BUDGET_SECONDS = 10.0
+ORIGINAL_POPEN_INIT = subprocess.Popen.__init__
 
 _PROCESS_CALLS: tuple[tuple[Any, str], ...] = (
     (subprocess.Popen, "__init__"),

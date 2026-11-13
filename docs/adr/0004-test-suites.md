@@ -2,7 +2,7 @@
 adr: 0004
 summary: Each test suite has its own folder and a fixed reach, the contract suite runs each git fake and its real adapter through the same cases, and the release code reaches GitHub only through a port.
 covers: [tests/**, devtools/**, .github/workflows/**]
-origin: agent
+origin: user
 ---
 # ADR-0004: Test suites
 
@@ -49,3 +49,4 @@ A test's folder sets its suite. Each suite may reach only what this table allows
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded the folder and the fixed reach of each suite, and the transport port of the GitHub adapter.
+- 2026-11-12 (user): Confirmed the decisions of this ADR.

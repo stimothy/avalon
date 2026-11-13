@@ -2,7 +2,7 @@
 adr: 0006
 summary: A merge into master releases the next version chosen by the pull request's label, and one workflow releases every commit newer than the latest version and writes nothing else.
 covers: [.github/workflows/release.yml, devtools/**]
-origin: agent
+origin: user
 ---
 # ADR-0006: Releases
 
@@ -63,3 +63,4 @@ A bad release is never deleted or retagged. A pull request that reverts it makes
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded the label that picks a version and the one workflow that releases every commit newer than the latest version.
+- 2026-11-12 (user): Confirmed the decisions of this ADR.

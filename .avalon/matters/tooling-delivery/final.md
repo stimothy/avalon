@@ -1,6 +1,6 @@
 # Final: tooling and delivery
 
-Chair: stand-in. The chair did not propose this matter. Status: adopted after round 2, with no round 3. The nine decisions are recorded in ADR-0003 to ADR-0006, and their ledger rows are written. The held law is not registered: the table reworded the user's proposal, so it waits for the user (see `outcome.md`), and its ledger row is pending.
+Chair: stand-in. The chair did not propose this matter. Status: adopted after round 2, with no round 3. The nine decisions are recorded in ADR-0003 to ADR-0006, and their ledger rows are written. The user then accepted the table's wording of the held law, so LAW-000016 is registered and its ledger row is written (see `outcome.md`).
 
 Items keep the numbers in `screening.md`. The final wording below is the wording of `revision-1.md` with the round 2 amendments in `votes-2.md` taken. Each amendment fixes wording so that a check can be made, and none changes what a decision chooses. The tallies are the round 2 tallies in `votes-2.md`.
 
@@ -223,7 +223,7 @@ Each row is in the format of `docs/laws/ledger.md`. Dissent gives the reason of 
 
 | Date | Decision | Proposed by | Decided by | Rounds | Tally | Dissent |
 |---|---|---|---|---|---|---|
-| 2026-11-12 | Added LAW-000016 (pending: written only after the user accepts the table's wording) | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
+| 2026-11-12 | Added LAW-000016 | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0003: pytest, coverage, ruff, and mypy, configured in one pyproject.toml | agent | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0003: the lock file is the only home of a tool version | agent | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0004: each suite has a folder and a fixed reach | agent | table | 2 | 4 approve, 1 amend, 0 reject | St: the GitHub adapter takes its HTTP transport as a port that every suite fakes, so its lines run under test |

@@ -6,18 +6,16 @@ A stand-in round table heard the slate in two rounds, with no third round. The c
 
 - ADR-0003 holds the development tools and the lock file. ADR-0004 holds the suites. ADR-0005 holds workflows and gates. ADR-0006 holds releases.
 - The ledger has one row for each of the nine decisions.
-- The decisions of the user (gates on a pull request ready for review, and release by a label) were adopted in the user's own words, so nothing about them is held.
-- Every ADR has origin `agent`, because each holds at least one call that the planning work reasoned. The user is offered the outcome to confirm.
+- The user accepted the table's wording of the held law, so LAW-000016 is registered, and the matter folder `.avalon/matters/standards-laws/` is removed.
+- The user confirmed the four ADRs, so each has origin `user`, a `(user)` changelog line, and a ledger row decided by `user`.
 
-## Held for the user
+## Open for the user
 
-The table reworded the held law ("format check", "with no finding", the ADR's ID), so LAW-000016 is not registered until the user answers. The matter folder `.avalon/matters/standards-laws/` stays until then. The table's wording is in `final.md`.
+The user accepted three proposals that no adopted decision includes. Each changes a record that is already written, so each needs a table:
 
-The user may also decide three proposals that no decision includes:
-
-- bar suppressions in the held law, outside `pyproject.toml`;
-- a `none` label for a pull request that should not release;
-- refuse `major` below 1.0.0 in the label check.
+- bar suppressions in LAW-000016, outside `pyproject.toml`;
+- a `none` label for a pull request that should not release (ADR-0006);
+- refuse `major` below 1.0.0 in the label check (ADR-0006).
 
 ## Sorted out for design docs
 

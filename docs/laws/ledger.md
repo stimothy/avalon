@@ -29,3 +29,8 @@ Every round-table decision and every confirmation by the user, one row each.
 | 2026-11-12 | Adopted ADR-0005: a ruleset protects master | agent | table | 2 | 4 approve, 1 amend, 0 reject | J: require the title-and-body scan of pr.yml as well as the label check |
 | 2026-11-12 | Adopted ADR-0006: a release is chosen by a label | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0006: one workflow releases, catches up, and writes nothing else | agent | table | 2 | 3 approve, 2 amend, 0 reject | Sk, J: cover the case of no version yet, and say a repeated run creates no version that already exists |
+| 2026-11-12 | Added LAW-000016 | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
+| 2026-11-12 | Confirmed ADR-0003 | agent | user | none | none | none |
+| 2026-11-12 | Confirmed ADR-0004 | agent | user | none | none | none |
+| 2026-11-12 | Confirmed ADR-0005 | agent | user | none | none | none |
+| 2026-11-12 | Confirmed ADR-0006 | agent | user | none | none | none |

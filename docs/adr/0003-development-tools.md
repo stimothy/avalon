@@ -2,7 +2,7 @@
 adr: 0003
 summary: Tests, coverage, lint, format, and types are handled by pytest, coverage, ruff, and mypy, configured in one pyproject.toml, and the lock file is the only home of a tool version.
 covers: [pyproject.toml, uv.lock, .venv/**, .github/workflows/**]
-origin: agent
+origin: user
 ---
 # ADR-0003: Development tools
 
@@ -66,3 +66,4 @@ The primary technologies are:
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded the development tools, their one configuration file, and the lock file as the only home of a tool version.
+- 2026-11-12 (user): Confirmed the decisions of this ADR.

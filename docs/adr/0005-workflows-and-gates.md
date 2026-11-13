@@ -2,7 +2,7 @@
 adr: 0005
 summary: Workflows hold no logic, gates run only on a pull request that is ready for review, two workflows gate a pull request with one job giving the verdict, and a ruleset protects master.
 covers: [.github/workflows/**, devtools/**]
-origin: agent
+origin: user
 ---
 # ADR-0005: Workflows and gates
 
@@ -90,3 +90,4 @@ The gates run on a pull request into `master` when it is opened, reopened, given
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded workflows with no logic, the pull-request trigger of the gates, the two gating workflows with one verdict job, and the ruleset on master.
+- 2026-11-12 (user): Confirmed the decisions of this ADR.

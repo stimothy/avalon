@@ -23,6 +23,8 @@ class RealGh:
         self._root = root
 
     def changed_files(self, pull_request: int) -> list[str]:
+        if self._process.which("gh") is None:
+            raise GhError("gh is not installed or not on PATH")
         args = ["gh", "pr", "diff", str(pull_request), "--name-only"]
         done = self._process.run(args, cwd=self._root)
         if done.returncode != 0:

@@ -72,7 +72,8 @@ def run(argv: list[str], root: Path) -> int:
         return _report(verdict.judge(needs, gated, args.filter_job))
     if args.command == "workflows":
         problems: list[str] = []
-        for workflow in sorted((root / ".github" / "workflows").glob("*.yml")):
+        folder = root / ".github" / "workflows"
+        for workflow in sorted([*folder.glob("*.yml"), *folder.glob("*.yaml")]):
             problems += workflow_check.check(workflow.name, workflow.read_text(encoding="utf-8"))
         return _report(problems)
     if args.command == "tracked":

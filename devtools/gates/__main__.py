@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import sys
 from pathlib import Path
@@ -16,6 +17,7 @@ from devtools.gates import (
     changed_paths,
     gitleaks_install,
     interpreter,
+    pr_labels,
     secret_scan,
     text_scan,
     tracked_scan,
@@ -50,6 +52,8 @@ def run(
     pull = sub.add_parser("pull-request")
     pull.add_argument("--title", required=True)
     pull.add_argument("--body", required=True)
+    labels = sub.add_parser("pr-labels")
+    labels.add_argument("--pr", type=int, required=True)
     changes = sub.add_parser("changed-paths")
     source = changes.add_mutually_exclusive_group(required=True)
     source.add_argument("--base")
@@ -80,6 +84,12 @@ def run(
     except (GitError, GhError) as error:
         print(error, file=sys.stderr)
         return 2
+    if args.command == "pr-labels":
+        try:
+            return _report(pr_labels.check(git, RealGh(process, str(root), os.environ), args.pr))
+        except (GitError, GhError) as error:
+            print(error, file=sys.stderr)
+            return 2
     if args.command == "interpreter":
         return _report(interpreter.check(args.expect, tuple(sys.version_info[:3])))
     if args.command == "install-gitleaks":

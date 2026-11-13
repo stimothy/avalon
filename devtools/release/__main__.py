@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
@@ -38,4 +39,4 @@ def run(argv: list[str], git: GitPort, gh: GhPort) -> int:
 if __name__ == "__main__":
     _process = RealProcess()
     _root = str(Path.cwd())
-    sys.exit(run(sys.argv[1:], RealGit(_process, _root), RealGh(_process, _root)))
+    sys.exit(run(sys.argv[1:], RealGit(_process, _root), RealGh(_process, _root, os.environ)))

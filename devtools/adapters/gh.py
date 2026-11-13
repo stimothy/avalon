@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -36,9 +37,12 @@ class GhPort(Protocol):
 class RealGh:
     """Reads and writes facts about a repo's pull requests and releases through `gh`."""
 
-    def __init__(self, process: ProcessPort, root: str) -> None:
+    def __init__(
+        self, process: ProcessPort, root: str, env: Mapping[str, str] | None = None
+    ) -> None:
         self._process = process
         self._root = root
+        self._env = env or {}
 
     def _run(self, args: list[str]) -> Completed:
         if self._process.which("gh") is None:
@@ -93,6 +97,9 @@ class RealGh:
         )
 
     def variable(self, name: str) -> str | None:
+        # A workflow token cannot read repository variables, so a workflow hands one in by env.
+        if name in self._env:
+            return self._env[name].strip() or None
         done = self._run(["variable", "get", name])
         if done.returncode == 0:
             return done.stdout.strip()

@@ -2,11 +2,11 @@
 summary: How the release code under `devtools/release/` works out versions from tags and pull request labels, what a run does, the dry run, and what the release notes hold.
 covers: [devtools/release/**, devtools/adapters/gh.py, devtools/adapters/git.py]
 verified: 2026-11-13
-verified_commit: b2ff832952bf5bc198c9e02e87171c7944457e3e
+verified_commit: 2e8c0fb00d73bebf6e7ec47cf0ad2ce2752569b7
 ---
 # The release code
 
-`python -m devtools.release` turns merged pull requests and their labels into versions. The rules it follows are in [ADR-0006](../adr/0006-releases.md). No workflow calls it yet.
+`python -m devtools.release` turns merged pull requests and their labels into versions. The rules it follows are in [ADR-0006](../adr/0006-releases.md). `release.yml` runs `release` on each push to `master`, and `pr.yml` runs `dry-run` on each pull request ([the workflows](gates-workflow.md)).
 
 ## Versions and labels
 
@@ -17,7 +17,7 @@ verified_commit: b2ff832952bf5bc198c9e02e87171c7944457e3e
 
 ## The refusal of `major`
 
-`policy.major_refusal` refuses `major` while no version exists or the latest is below `v1.0.0`, unless the repository variable `ALLOW_PRE_1_MAJOR` has the value `true`. The release run and the dry run call it, and so does the label check of a later story.
+`policy.major_refusal` refuses `major` while no version exists or the latest is below `v1.0.0`, unless the repository variable `ALLOW_PRE_1_MAJOR` has the value `true`. The release run, the dry run, and the label check of `pr.yml` (`devtools/gates/pr_labels.py`) all call it.
 
 ## A release run
 
@@ -47,4 +47,4 @@ The notes start with an `On upgrade` section for what a user must do in a target
 
 ## Ports
 
-The code reaches git through `RealGit` and GitHub through `RealGh`, which runs `gh` through the process adapter. Unit tests replace both with fakes. The contract suite runs the git fake and `RealGit` through the same cases in a throwaway repo. No suite reaches GitHub.
+The code reaches git through `RealGit` and GitHub through `RealGh`, which runs `gh` through the process adapter and reads the repository variable from the environment when the environment defines it, even as an empty value meaning unset, and asks `gh` only when it does not, because a workflow token cannot read it. Unit tests replace both with fakes. The contract suite runs the git fake and `RealGit` through the same cases in a throwaway repo. No suite reaches GitHub.

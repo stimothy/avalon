@@ -53,4 +53,4 @@ The ledger records decisions; `docs/laws/` is edited by hand here because the la
 
 ## Outcome
 
-Three rounds; the last round was 5 approve, 0 amend, 0 reject on all seven. LAW-000010 (proposal 1, the user's wording) is registered. Proposals 2, 3, 4, 5, and 7 are reworded, and proposal 6 waits for the tool-choice ADR (Story 1.6); all six are held in the matter folder for the user's decision. No ledger row exists for a held proposal.
+Three rounds; the last round was 5 approve, 0 amend, 0 reject on all seven. LAW-000010 (proposal 1, the user's wording) was registered. The user then accepted the table's wording for proposals 2, 3, 4, 5, and 7, registered as LAW-000011 to LAW-000015. Proposal 6 waits for the tool-choice ADR (Story 1.6) and is held in the matter folder. No ledger row exists for a held proposal.

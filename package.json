@@ -2,6 +2,9 @@
   "private": true,
   "description": "Markdown lint for the Avalon repo. This project builds no package.",
   "devDependencies": {
-    "markdownlint-cli2": "0.24.0"
+    "markdownlint-cli2": "0.24.1"
+  },
+  "overrides": {
+    "katex": "0.19.1"
   }
 }

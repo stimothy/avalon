@@ -14,9 +14,14 @@ _PLAN_ID = re.compile(r"(?<![A-Za-z0-9_])(?:" + "|".join(PLAN_PREFIXES) + r")-\d
 _PLAN_FOLDER = re.compile(
     r"(?<![\w-])(?:" + "|".join(re.escape(f) for f in skip_list.PLAN_FOLDERS) + r")(?![\w-])"
 )
+# A plan file named alone, as a whole token, with no folder before it.
+_PLAN_FILE = re.compile(
+    r"(?<![\w-])(?:" + "|".join(re.escape(f) for f in skip_list.PLAN_FILES) + r")(?![\w-])"
+)
 # Built in pieces, so this file does not hold a home path itself.
 _UNIX_HOMES = "|".join(f"/{name}/" for name in ("Us" + "ers", "ho" + "me"))
-_HOME_PATH = re.compile(rf"(?:{_UNIX_HOMES})[^/\s`'\"]+|[A-Za-z]:\\{'Us' + 'ers'}\\[^\\\s`'\"]+")
+_WINDOWS_HOME = r"(?i:[a-z]:\\" + "Us" + r"ers\\)[^\\\s`'\"]+"
+_HOME_PATH = re.compile(rf"(?:{_UNIX_HOMES})[^/\s`'\"]+|{_WINDOWS_HOME}")
 
 
 @dataclass(frozen=True)
@@ -40,10 +45,11 @@ def _scan_lines(path: str, text: str, pattern: re.Pattern[str], kind: str) -> li
 
 
 def plan_citations(path: str, text: str) -> list[Finding]:
-    """Find plan IDs, and plan folder names in a file not allowed to name one."""
+    """Find plan IDs, and plan folder and file names in a file not allowed to name one."""
     found = _scan_lines(path, text, _PLAN_ID, "plan ID")
     if not skip_list.may_name_a_plan_folder(path):
         found += _scan_lines(path, text, _PLAN_FOLDER, "plan folder")
+        found += _scan_lines(path, text, _PLAN_FILE, "plan file")
     return found
 
 

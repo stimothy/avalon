@@ -4,6 +4,16 @@ from __future__ import annotations
 
 PLAN_FOLDERS: tuple[str, ...] = ("_bmad-output", "_bmad", "temporary-plans")
 
+# File names of the plan files. No tracked file outside the skip list may name one.
+PLAN_FILES: tuple[str, ...] = (
+    "SPEC.md",
+    "BRIEF.md",
+    "ARCHITECTURE-SPINE.md",
+    "epics.md",
+    "prd.md",
+    "addendum.md",
+)
+
 LOCK_FILES: tuple[str, ...] = ("uv.lock", "package-lock.json")
 
 # The only tracked files that may name a plan folder, besides this one.

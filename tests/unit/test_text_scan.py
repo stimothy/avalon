@@ -59,6 +59,41 @@ def test_a_windows_home_path_is_found() -> None:
     assert [f.kind for f in found] == ["home path"]
 
 
+@pytest.mark.parametrize("name", skip_list.PLAN_FILES)
+def test_a_plan_file_named_without_its_folder_is_found(name: str) -> None:
+    found = text_scan.scan_file("docs/a.md", f"See {name} for the details.")
+
+    assert [f.kind for f in found] == ["plan file"]
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "my-" + skip_list.PLAN_FILES[0],
+        skip_list.PLAN_FILES[0] + "x",
+        skip_list.PLAN_FILES[0].lower(),
+        "x" + skip_list.PLAN_FILES[1],
+    ],
+)
+def test_a_plan_file_name_inside_a_longer_word_or_in_another_case_passes(text: str) -> None:
+    found = text_scan.scan_file("docs/a.md", text)
+
+    assert found == []
+
+
+def test_a_plan_file_named_in_a_pull_request_description_is_found() -> None:
+    found = text_scan.scan_pull_request("Add a gate", f"As in {skip_list.PLAN_FILES[1]}")
+
+    assert [(f.path, f.kind) for f in found] == [("pull request body", "plan file")]
+
+
+@pytest.mark.parametrize("drive", ["C:\\Us" + "ers\\", "C:\\us" + "ers\\", "c:\\US" + "ERS\\"])
+def test_a_windows_home_path_is_found_in_any_letter_case(drive: str) -> None:
+    found = text_scan.scan_file("docs/a.md", drive + "alice\\notes")
+
+    assert [f.kind for f in found] == ["home path"]
+
+
 def test_a_pull_request_title_and_body_are_checked_for_plan_citations() -> None:
     found = text_scan.scan_pull_request(f"Fix {PLAN_ID}", f"body\n{FOLDER}")
 

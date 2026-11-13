@@ -1,8 +1,8 @@
 ---
 adr: 0001
-summary: Avalon is a plugin of three layers in a self-contained folder, with a standard-library Python script that has a pure core, ports, all-or-nothing writes, one guard hook, and one leading flag for the user's authority.
+summary: Avalon is a plugin of three layers in a self-contained folder, with a standard-library Python script that never calls a model, has a pure core, ports, all-or-nothing writes, one guard hook, one leading flag for the user's authority, and one read-only git module.
 covers: [plugin/**]
-origin: agent
+origin: user
 ---
 # ADR-0001: Architecture
 
@@ -17,7 +17,7 @@ The primary technologies are:
 - the Claude Code plugin format
 - Python, standard library only, version 3.9 and later (the reason for the floor is unknown)
 - Markdown documents
-- git
+- git, read-only
 
 The diagram shows the three layers, which layer may call which, and the parts inside the script.
 
@@ -37,6 +37,14 @@ flowchart TD
 ```
 
 ## Decision
+
+### Judgment in prompts, mechanics in one script
+
+- Agents and skills hold procedure and judgment: what is a law, how a line is worded, how a seat votes.
+- One script does every repeatable step and every write to the record.
+- The script never calls a model.
+- A skill or agent never does a step by hand when a script command does it. It names the command instead.
+- Before the plugin's agents exist, ADR-0002 applies and this rule does not.
 
 ### A plugin of three layers in a self-contained folder
 
@@ -92,8 +100,16 @@ flowchart TD
 - The flag guards against mistakes. It is not a security boundary.
 - The flag never takes the place of a round table where a law requires one.
 
+### One module reads git, and nothing writes it
+
+- The git adapter is one module. It runs a fixed list of read-only git commands.
+- No agent and no script command commits, branches, or tags.
+- The session that asked for the work owns git.
+
 ## Consequences
 
+- The rule that the script never calls a model is the hardest part of the first decision to reverse.
+- Allowing a git write later is a small change, but it breaks the rule above and so needs a round table.
 - Any change to the minimum Python version, or admitting a third-party dependency, goes through a round table.
 - The plugin-folder boundary sets the install layout, so it is costly to reverse.
 - Once an on-disk change-set format exists, undoing the all-or-nothing rule is hard.
@@ -114,6 +130,10 @@ flowchart TD
 
 ## Alternatives rejected
 
+- **Rejected: agents do the mechanical steps themselves.** The reason is unknown.
+- **Rejected: a script that calls a model.** The reason is unknown.
+- **Rejected: the script commits its own changes.** The reason is unknown.
+- **Rejected: several modules call git.** The reason is unknown.
 - **Rejected: a standalone command-line tool.** The reason is unknown.
 - **Rejected: instructions only, with no script.** The reason is unknown.
 - **Rejected: one root with everything together, filtered at install.** The reason is unknown.
@@ -134,3 +154,5 @@ flowchart TD
 ## Changelog
 
 - 2026-11-12 (agent, table): Created. Recorded the plugin's form, its parts and their boundaries, and its technologies.
+- 2026-11-12 (user, table): Added the split of judgment and mechanics, and the rule that one module reads git and nothing writes it.
+- 2026-11-12 (user): Confirmed the decisions of this ADR.

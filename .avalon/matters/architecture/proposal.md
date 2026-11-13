@@ -1,6 +1,6 @@
 # Decision matter: the architecture
 
-Kind: decision matter, one slate. Proposer: the planning work reasoned most of it from the user's rules, so the user is offered the outcome to confirm. Status: a stand-in round table heard the slate in two rounds. Seven decisions are recorded in ADR-0001, each 5 approve, 0 amend, 0 reject. Two decisions are held for the user, see below.
+Kind: decision matter, one slate. Proposer: the planning work reasoned most of it from the user's rules, so the user is offered the outcome to confirm. Status: a stand-in round table heard the slate in two rounds. All nine decisions are recorded in ADR-0001, each 5 approve, 0 amend, 0 reject. The user accepted the table's wording of the two held decisions and confirmed ADR-0001, so its origin is `user`.
 
 ## Held for the user
 

@@ -17,3 +17,6 @@ Every round-table decision and every confirmation by the user, one row each.
 | 2026-11-12 | Adopted ADR-0001: one home for each format, one writer for each file | agent | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0001: a hook guards the record | agent | table | 2 | 5 approve, 0 amend, 0 reject | none |
 | 2026-11-12 | Adopted ADR-0001: the user's authority is one leading flag | agent | table | 2 | 5 approve, 0 amend, 0 reject | none |
+| 2026-11-12 | Adopted ADR-0001: judgment in prompts, mechanics in one script | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
+| 2026-11-12 | Adopted ADR-0001: one module reads git, and nothing writes it | user | table | 2 | 5 approve, 0 amend, 0 reject | none |
+| 2026-11-12 | Confirmed ADR-0001 | agent | user | none | none | none |

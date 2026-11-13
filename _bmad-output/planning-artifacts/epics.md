@@ -874,19 +874,25 @@ So that every merge gets exactly one release, in order, however the runs overlap
 **Then** the label raises its own part, and every part after it becomes zero
 **And** with no version in the repo, the count starts from `v0.0.0`.
 
+**Given** a commit whose pull request carries the label `none`
+**When** a release run walks it
+**Then** the run skips it and makes no version for it
+**And** its changes ship in the next version that is made.
+
 **Given** commits on `master` that are newer than the latest version
 **When** a release run walks them
 **Then** it takes them oldest first
 **And** for each it finds the merged pull request, and reads the label that pull request carries at that moment
 **And** a commit with no merged pull request gets no release of its own, and ships in the next one.
 
-**Given** a pull request that carries none of the three labels, or more than one
+**Given** a pull request that carries none of the four labels `major`, `minor`, `patch`, and `none`, or more than one of them
 **When** the run reaches it
 **Then** the run stops and names the pull request.
 
-**Given** a latest version below `v1.0.0`, and the label `major`
+**Given** no version, or a latest version below `v1.0.0`, and the label `major`
 **When** the next version is worked out
-**Then** the code refuses, unless a repository variable that the owner sets allows it.
+**Then** the code refuses, unless a repository variable that the owner sets allows it
+**And** one function under `devtools/` decides the refusal, so Story 1.13's label check calls the same code.
 
 **Given** a version to make
 **When** the run makes it
@@ -924,7 +930,8 @@ So that every merged pull request becomes a numbered release with no step by han
 **Given** a pull request into `master` that is ready for review
 **When** it is opened, pushed to, labelled, unlabelled, or has its title or body edited
 **Then** `pr.yml` runs
-**And** it fails unless the pull request carries exactly one of `major`, `minor`, and `patch`
+**And** it fails unless the pull request carries exactly one of `major`, `minor`, `patch`, and `none`
+**And** while no version exists or the latest version is below `v1.0.0`, it fails a pull request labelled `major` unless the owner's repository variable allows it, and reads the version and the variable through the same GitHub port as the release code
 **And** it scans the title and the body for plan citations
 **And** it runs the release code in dry-run mode and shows the version the pull request would get.
 
@@ -960,7 +967,7 @@ So that the gates and the release path are proven before the first line of plugi
 **When** they are checked against the repo
 **Then** a ruleset on `master` requires a pull request, the final job of `gates.yml`, the job of `pr.yml`, and a branch that is up to date
 **And** it allows squash merges only, with the pull request's title and description as the commit message
-**And** the three version labels exist, and private vulnerability reporting is on.
+**And** the four labels `major`, `minor`, `patch`, and `none` exist (the owner creates `none` by hand, because the first three exist from Story 1.1), and private vulnerability reporting is on.
 
 **Given** the credential for the plugin evals
 **When** the owner stores it as a repository secret
@@ -988,7 +995,7 @@ So that the gates and the release path are proven before the first line of plugi
 **Then** no gate runs while it is a draft, and the gates run when it is marked ready
 **And** a second push cancels the run in progress
 **And** the label check fails while it carries no version label
-**And** its merge makes exactly one release
+**And** its merge makes exactly one release, and a pull request labelled `none` makes none
 **And** the pull request records each of these results.
 
 **Given** the README

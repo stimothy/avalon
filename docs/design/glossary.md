@@ -16,17 +16,22 @@ verified_commit: b91b169fb6b690365f6b9d3e6ed1d8e85cfcc769
 | Chair | The agent that runs a round table, decides, and registers the outcome. |
 | Change set | The whole set of files that one writing command writes, applied as one all-or-nothing change. |
 | Config file | The file `.avalon.yml` at the top of a repo. It holds the root, the caps, and the scope list. |
+| Contract suite | The suite that runs each git fake and its real adapter through the same cases, with real git in a throwaway repo. |
 | Core | The part of the script that decides, parses, and renders, and does no input or output. |
 | Decision | A choice that is costly to reverse and had real alternatives. It is recorded in an ADR. |
 | Design doc | A document that describes the repo as it is, with a stamp that shows when it was last checked. |
 | Detail file | A file that carries a law's full meaning when one sentence cannot. It is named for the law, such as `LAW-000009.md`. |
+| Eval | The suite that reaches Claude Code and a model, on a copy of a fixture. |
+| Final job | The last job of `gates.yml`. It fails unless every other job succeeded or was skipped by its own `if:`, so it gives the verdict on a pull request. |
 | Flag | The one leading flag that the script requires on a command that needs the user's authority. Only the user runs a flagged command. |
+| Gate | A check that runs as a job in a workflow on a pull request. |
 | Guideline | A standard that rests on judgment and has no gate. A reviewer checks it. It lives in a design doc and is not registered as a law. |
 | Hook | The guard hook, a command of the script that denies direct writes to the record and approves only a closed list of everyday commands. |
 | Law | A standing rule in the registry. It binds everything in the repo. |
 | Layer | One of the plugin's three tiers: skills on top, agents in the middle, the script at the bottom. |
 | Ledger | The record of every round-table decision and every confirmation by the user: `docs/laws/ledger.md`. |
 | Legacy | In the repo at the install commit. A legacy decision is recorded without a round table. |
+| Lock file | The file `uv.lock`. It locks the versions of the development tools and is the only home of a tool version. |
 | Matter | What a round table decides: a law matter or a decision matter. |
 | Origin | Who a law or ADR came from: `core`, `user`, or `agent`. All three bind equally. |
 | Plugin folder | The self-contained folder that holds the script, its templates, and everything else a user installs. |
@@ -37,10 +42,12 @@ verified_commit: b91b169fb6b690365f6b9d3e6ed1d8e85cfcc769
 | Retired | Amended or removed, for a law. Deleted because it stopped applying, for an ADR. |
 | Root | The folder that holds `laws/`, `adr/`, and `design/`. It is `docs/` in this repo. |
 | Round table | Five seat agents and a chair that decide a matter in at most three rounds. |
+| Ruleset | The GitHub setting on `master` that requires a pull request and named checks. The owner sets it by hand. |
 | Scope | A one-word tag on a law, taken from the scope list in `.avalon.yml`. |
 | Script | The one command-line program that does every mechanical step. It does not exist yet. |
 | Seat | A subagent that votes at a round table from one fixed perspective. |
 | Skill | A unit of procedure in the top layer that may call agents and the script. |
 | Stand-in | A subagent that plays a role that the plugin's own agent will take, such as writer, editor, or seat. |
+| Suite | A group of tests with one folder and one fixed reach: unit, integration, end-to-end, contract, or eval. Each suite runs apart from the others. |
 | Tech writer | The agent that writes and edits ADRs and design docs. |
 | The work | Whatever a repo exists to hold, such as source, manuscript, configuration, or prompts. |

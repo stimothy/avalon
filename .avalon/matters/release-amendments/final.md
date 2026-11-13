@@ -155,7 +155,9 @@ Add these rows to `docs/laws/ledger.md`:
 | 2026-11-12 | Amended ADR-0006: the label check refuses major below 1.0.0 | user | table | 1 | 2 approve, 3 amend, 0 reject | J: say no check can stop the merge, and ask the user to confirm the release code's refusal stays; St: one combined sentence (held for the user); Sc: use the same GitHub port |
 ```
 
-## 4. Held for the user
+## 4. Held for the user (resolved)
+
+The user then accepted the Steward's wording for the law and for the sentence in C. The law became LAW-000018, which replaced LAW-000017, and ADR-0006 gained the Steward's combined sentence. The ledger records both with the user as decider and no round. The two other rewordings of the law were not taken. This section keeps the options as they were held.
 
 Each of these rewords the user's accepted wording, so the table registers none of them. The user may accept one.
 

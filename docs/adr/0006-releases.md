@@ -34,7 +34,7 @@ A merge into `master` releases the next version, unless its pull request is labe
 - The workflow never pushes a commit.
 - A repeated run creates no version that already exists.
 
-While no version exists or the latest version is below 1.0.0, the release code refuses `major` unless a repository variable that only the owner sets allows it. The variable's name is unknown until it is chosen. While no version exists or the latest version is below 1.0.0, the label check refuses `major` unless the owner's repository variable allows it.
+While no version exists or the latest version is below 1.0.0, the label check and the release code each refuse `major` unless a repository variable that only the owner sets allows it. The variable's name is unknown until it is chosen.
 
 A commit that has no merged pull request with exactly one of the four labels, or that is refused, fails the run. The run releases nothing at or after that commit until the label or the variable is changed and the run is repeated.
 
@@ -75,3 +75,4 @@ A bad release is never deleted or retagged. A pull request that reverts it makes
 - 2026-11-12 (user): Confirmed the decisions of this ADR.
 - 2026-11-12 (user, table): Amended. A pull request labelled `none` releases nothing, and the release workflow skips its commit.
 - 2026-11-12 (user, table): Amended. The label check refuses `major` below 1.0.0 unless the owner's variable allows it, and the release code keeps its own refusal.
+- 2026-11-12 (user): Reworded. One sentence now states the refusal of `major` for the label check and the release code.

@@ -20,4 +20,4 @@ Open a detail file only when the one-line law is not enough to act on.
 | LAW-000013 | code | user | No integration or end-to-end test uses git or the network. | [more](LAW-000013.md) |
 | LAW-000014 | code | user | Tests cover at least 80% of the lines of Python this repo authors, tests excluded. | [more](LAW-000014.md) |
 | LAW-000015 | code | user | No directory this repo authors is named utils, helpers, misc, common, or tmp, in any letter case. | [more](LAW-000015.md) |
-| LAW-000017 | code | user | Python this repo authors passes the format check, linter, and type checker that the tool-choice ADR (ADR-0003) names, with no finding, and turns off a check only in `pyproject.toml`. | [more](LAW-000017.md) |
+| LAW-000018 | code | user | Python this repo authors passes the format check, linter, and type checker that the tool-choice ADR (ADR-0003) names, with no finding, and no check is turned off outside `pyproject.toml`. | [more](LAW-000018.md) |

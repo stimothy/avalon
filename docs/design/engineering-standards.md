@@ -1,12 +1,12 @@
 ---
-summary: Five engineering guidelines for code written in this repo, each judged by a reviewer and enforced by no gate.
+summary: Six engineering guidelines for this repo, each judged by a reviewer and enforced by no gate.
 covers: [docs/design/**]
 verified: 2026-11-12
 verified_commit: 712486c
 ---
 # Engineering standards
 
-Code written in this repo follows five guidelines. Each is a guideline, not a gate. No tool checks any of them, and a reviewer judges each one while reviewing a change.
+This repo follows six guidelines. Each is a guideline, not a gate. No tool checks any of them, and a reviewer judges each one while reviewing a change.
 
 ## Test-driven development
 
@@ -37,6 +37,10 @@ Code follows the SOLID principles:
 ## Directories have one purpose
 
 Every file in a directory serves the one purpose its name states. When that stops being true, the files are grouped into subdirectories. Two layouts are fixed and exempt: the docs tree, and the plugin's `agents` folder, where a subfolder would become part of an agent's name.
+
+## Required checks come on in stages
+
+A job becomes a required check once the pull request that adds its workflow has merged.
 
 ## How a reviewer applies them
 

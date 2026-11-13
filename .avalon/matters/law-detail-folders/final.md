@@ -1,6 +1,6 @@
 # Final: the plan folder names in two law detail files
 
-Chair: stand-in. The chair did not propose this matter. Status: decided in round 1 and applied. Origin: agent; offered to the user for confirmation.
+Chair: stand-in. The chair did not propose this matter. Status: decided in round 1, applied, and confirmed by the user. Origin: agent, confirmed by the user.
 
 All five seats voted amend (0 approve, 5 amend, 0 reject). The table decides with no round 2.
 

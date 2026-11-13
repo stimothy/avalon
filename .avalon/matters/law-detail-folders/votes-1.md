@@ -9,9 +9,9 @@ P is the Practitioner, Sk the Skeptic, J the Jurist, St the Steward, Sc the Scou
 
 ## Amendments raised
 
-- All five: the skip list holds three folders, including `temporary-plans`, which the old sentences never named. The change widens the exemption of both laws, and the record must say so.
-- P: name the constant: "...the plan folders that `PLAN_FOLDERS` in `devtools/gates/skip_list.py` lists." Either add `.claude/` to the skip list or record why it is exempt elsewhere, because the exemption splits across two homes. Confirm that `temporary-plans` is meant to be exempt.
-- Sk: use the same wording, and record the extension to `temporary-plans`. Or decide that a law's scope may not depend on code, and exempt the two detail files in the skip list instead.
+- All five: the skip list holds three folders, including a third plan folder, which the old sentences never named. The change widens the exemption of both laws, and the record must say so.
+- P: name the constant: "...the plan folders that `PLAN_FOLDERS` in `devtools/gates/skip_list.py` lists." Either add `.claude/` to the skip list or record why it is exempt elsewhere, because the exemption splits across two homes. Confirm that the third folder is meant to be exempt.
+- Sk: use the same wording, and record the extension to the third folder. Or decide that a law's scope may not depend on code, and exempt the two detail files in the skip list instead.
 - J: add "A change to `PLAN_FOLDERS` changes the scope of this law and goes to a round table before it merges." A pointer from a detail file into code is not barred. The change needs its own ledger row.
 - St: "...except `.claude/` and the plan folders listed in `devtools/gates/skip_list.py`; that file is the one home of those folder names." Confirm the skip list holds only plan folders (it also holds lock files).
 - Sc: pointing a law at code lets an ordinary edit change its scope with no round table (LAW-000003). Argue the simplest alternative: add the two detail files to `MAY_NAME_A_PLAN_FOLDER`, which needs no law change. If A and B stand, name the four folders in the sentence and have the skip list cite the law.

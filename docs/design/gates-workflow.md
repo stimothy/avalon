@@ -34,7 +34,7 @@ It runs on a pull request into `master` when the pull request is opened, reopene
 - Every runner label is pinned: `ubuntu-24.04` and `macos-15`.
 - The "current release" of Python is written as `3.14`, in the `suites` matrix and in `code`.
 - A job on Python 3.9 first runs `python -m devtools.gates interpreter --expect 3.9`, which fails when the interpreter reports another version.
-- On macOS the 3.9 job uses `/usr/bin/python3` and sets `UV_PYTHON_DOWNLOADS=never`, so `uv` downloads no interpreter.
+- On macOS the 3.9 job uses `/usr/bin/python3` and sets `UV_PYTHON_DOWNLOADS=never`, so `uv` downloads no interpreter. The `macos-15` runner's system interpreter reports 3.9.6, so no other runner or install is in use.
 - Every job installs the Python tools with `uv sync --locked` and the Node tools with `npm ci`. `claude plugin validate` runs from the Claude Code package in `package-lock.json`.
 
 ## gitleaks

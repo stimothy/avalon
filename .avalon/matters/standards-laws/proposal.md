@@ -34,9 +34,9 @@ The contract tests and the plugin evals are suites outside the unit, integration
 
 The detail names the tests directory as excluded.
 
-## Precondition for proposal 7
+## Note on proposal 7
 
-The tracked `tmp/` folder must be renamed or moved before the law is adopted, or the law is broken on adoption.
+The plan folder was named `tmp`, a name the law forbids. It is renamed `temporary-plans`, so the law holds on adoption.
 
 ## Raised for a separate matter
 

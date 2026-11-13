@@ -7,7 +7,7 @@ inputDocuments:
   - '_bmad-output/planning-artifacts/prds/prd-avalon-2026-11-11/prd.md'
   - '_bmad-output/planning-artifacts/prds/prd-avalon-2026-11-11/addendum.md'
   - '_bmad-output/planning-artifacts/architecture/architecture-avalon-2026-11-11/ARCHITECTURE-SPINE.md'
-  - 'tmp/SPEC.md'
+  - 'temporary-plans/SPEC.md'
 ---
 
 # Avalon - Epic Breakdown
@@ -24,11 +24,11 @@ Each story therefore states its acceptance criteria in full, so that a test can 
 
 - `FR-n` and `NFR-n` are requirements in the PRD.
 - `AD-n` is a decision in the architecture spine.
-- `AC-nn` is an acceptance scenario in `tmp/SPEC.md` section 17, and `REQ-nnn` is a requirement there.
+- `AC-nn` is an acceptance scenario in `temporary-plans/SPEC.md` section 17, and `REQ-nnn` is a requirement there.
 - `SM-n` is a success metric in PRD section 10.
 
-**Which document governs.** The four inputs were written in order: `tmp/SPEC.md`, the PRD, the spine, and this file.
-Where a later one changes an earlier one on purpose, it says so, and the later one is what the build follows. The PRD's addendum, section 6, lists each change to `tmp/SPEC.md`. The spine marks each of its changes `[ASSUMPTION]`. "Assumptions made at each gate" lists this file's.
+**Which document governs.** The four inputs were written in order: `temporary-plans/SPEC.md`, the PRD, the spine, and this file.
+Where a later one changes an earlier one on purpose, it says so, and the later one is what the build follows. The PRD's addendum, section 6, lists each change to `temporary-plans/SPEC.md`. The spine marks each of its changes `[ASSUMPTION]`. "Assumptions made at each gate" lists this file's.
 Where two of them disagree and neither says so, that is a defect. The developer reports it and does not pick a side.
 The PRD says its changes govern once the user signs it off. The user has not marked it final, so this order is a working rule until the user does.
 
@@ -40,7 +40,7 @@ The workflow stops for the user after each of its four steps, and this run took 
 
 ### Functional Requirements
 
-Each line is the capability the PRD states. The PRD holds the testable consequences, and `tmp/SPEC.md` holds the requirement text.
+Each line is the capability the PRD states. The PRD holds the testable consequences, and `temporary-plans/SPEC.md` holds the requirement text.
 
 **The document model**
 
@@ -167,7 +167,7 @@ These come from the architecture spine. Each one shapes at least one story.
 
 **Rules that bind every story**
 
-- AD-1: Plans are temporary. No tracked file outside `_bmad-output/`, `tmp/`, and `_bmad/` names a plan file or a plan ID. A gate scans tracked files, and the pull request title and body.
+- AD-1: Plans are temporary. No tracked file outside `_bmad-output/`, `temporary-plans/`, and `_bmad/` names a plan file or a plan ID. A gate scans tracked files, and the pull request title and body.
 - AD-2: Judgment lives in prompts, and mechanics live in the script. A skill or agent file names a command and never restates it.
 - AD-19: This repo follows the Avalon process from its first document. Every law and ADR of this repo goes to a round table before it is written, with stand-in subagents until the plugin's agents exist, and hand-written records until the script exists.
 - Consistency conventions: names, test names, text encoding, dates, config keys, the cap defaults, and no folder named `utils`, `helpers`, `misc`, or `common`.
@@ -438,7 +438,7 @@ As the user,
 I want this repo to hold an Avalon docs tree from its first day,
 So that every rule, decision, and description has a lasting home before any code exists.
 
-**Covers:** FR-32, FR-34, FR-48; AD-19. The formats are in `tmp/SPEC.md` sections 3, 5, 6, 7, 9, and 11.
+**Covers:** FR-32, FR-34, FR-48; AD-19. The formats are in `temporary-plans/SPEC.md` sections 3, 5, 6, 7, 9, and 11.
 
 **Acceptance Criteria:**
 
@@ -514,7 +514,7 @@ As the user,
 I want a round table to hear each standard that is a law, before the plugin's own agents exist,
 So that this repo's first laws were heard like every law after them.
 
-**Covers:** FR-15 to FR-21, FR-48; AD-19. The procedure is in `tmp/SPEC.md` section 4.
+**Covers:** FR-15 to FR-21, FR-48; AD-19. The procedure is in `temporary-plans/SPEC.md` section 4.
 
 **Acceptance Criteria:**
 
@@ -569,7 +569,7 @@ As the user,
 I want the architecture heard by a round table and recorded as this repo's first ADR,
 So that the code has a decision of record to follow, and no plan is the only home of that decision.
 
-**Covers:** FR-23, FR-48; AD-1, AD-19. The ADR format is in `tmp/SPEC.md` section 5.
+**Covers:** FR-23, FR-48; AD-1, AD-19. The ADR format is in `temporary-plans/SPEC.md` section 5.
 
 **Acceptance Criteria:**
 
@@ -1001,7 +1001,7 @@ As the user,
 I want the writing standard heard by a round table, together with the law that carries it,
 So that every document written after it follows one agreed standard.
 
-**Covers:** FR-4, FR-29, FR-30, FR-48; AD-19. The draft is `tmp/SPEC.md` section 8.
+**Covers:** FR-4, FR-29, FR-30, FR-48; AD-19. The draft is `temporary-plans/SPEC.md` section 8.
 
 **Acceptance Criteria:**
 
@@ -1038,7 +1038,7 @@ As the user,
 I want a round table to hear each of the other eight core laws,
 So that the laws Avalon ships to every repo were tested by the process they establish.
 
-**Covers:** FR-1, FR-3, FR-4, FR-35, FR-48; AD-19; SM-3. The drafts are `tmp/SPEC.md` section 11.
+**Covers:** FR-1, FR-3, FR-4, FR-35, FR-48; AD-19; SM-3. The drafts are `temporary-plans/SPEC.md` section 11.
 
 **Acceptance Criteria:**
 
@@ -1152,7 +1152,7 @@ As a working agent,
 I want the same short block at the top of every target repo's instructions,
 So that I load the laws and know what to read and what to do on a conflict, with or without the plugin.
 
-**Covers:** FR-1, FR-5, FR-34, FR-35, FR-46; NFR-1; AD-6. The text is `tmp/SPEC.md` section 9.
+**Covers:** FR-1, FR-5, FR-34, FR-35, FR-46; NFR-1; AD-6. The text is `temporary-plans/SPEC.md` section 9.
 
 **Acceptance Criteria:**
 
@@ -1857,7 +1857,7 @@ So that from here on, nothing under this repo's laws folder is written by hand.
 The user, or a working agent, proposes a law with `/avalon:law`. A chair and five seats hear it, and the script registers the outcome.
 The hook guards the record, lets a round table run without a prompt at every step, and puts every claim of the user's authority in front of the user.
 
-The model and the effort of each agent start from the values in `tmp/SPEC.md` section 14, and are tuned on the evals in this epic.
+The model and the effort of each agent start from the values in `temporary-plans/SPEC.md` section 14, and are tuned on the evals in this epic.
 
 ### Story 4.1: The hook denies a direct write to the record
 
@@ -3337,7 +3337,7 @@ So that 1.0 claims only what has been shown.
 
 **Acceptance Criteria:**
 
-**Given** the 45 acceptance scenarios in `tmp/SPEC.md` section 17
+**Given** the 45 acceptance scenarios in `temporary-plans/SPEC.md` section 17
 **When** each is matched to what proves it
 **Then** each of the 33 script scenarios has an automated test that passes, named for its behaviour
 **And** each of the 12 plugin scenarios has an eval case that passes
@@ -3370,7 +3370,7 @@ So that the repo holds one source of truth, and nothing points at a file that is
 
 **Acceptance Criteria:**
 
-**Given** the plan files under `_bmad-output/` and `tmp/`
+**Given** the plan files under `_bmad-output/` and `temporary-plans/`
 **When** each rule, decision, and description in them is checked
 **Then** every one that must last is in a law, an ADR, or a design doc of this repo, in its own words
 **And** a decision still to be recorded goes to a round table first.
@@ -3421,7 +3421,7 @@ The workflow stops for the user four times. This run took the default each time,
 
 ### Gate 1: the inputs and the extracted requirements
 
-- The inputs are the PRD, its addendum, the architecture spine, and `tmp/SPEC.md`. The PRD names `tmp/SPEC.md` as the home of the requirement text and the acceptance scenarios. `tmp/BRIEF.md` holds reasoning only, and it was not loaded.
+- The inputs are the PRD, its addendum, the architecture spine, and `temporary-plans/SPEC.md`. The PRD names `temporary-plans/SPEC.md` as the home of the requirement text and the acceptance scenarios. `temporary-plans/BRIEF.md` holds reasoning only, and it was not loaded.
 - There is no UX input, and none is needed.
 - The PRD and the spine are both still drafts. This breakdown treats every answer in them as standing.
 
@@ -3477,7 +3477,7 @@ The recorded install commit stays as a record. It is still written once, and the
 - On a squash merge, the point found is the shared branch just before the merge. Work done on the branch before `scaffold` ran then counts as after the install, so a decision about it goes to a round table as a late decision. The test errs toward a hearing, which is the safe side.
 - The oldest commit is used, so that deleting the config file and adding it again cannot move the point later.
 
-**What it changes.** Spine AD-11, PRD FR-25 and OQ-46, the PRD addendum, and Stories 1.2 and 5.5. It changes REQ-142 in `tmp/SPEC.md`.
+**What it changes.** Spine AD-11, PRD FR-25 and OQ-46, the PRD addendum, and Stories 1.2 and 5.5. It changes REQ-142 in `temporary-plans/SPEC.md`.
 
 ### 2. Who proposes the architecture
 
@@ -3592,4 +3592,4 @@ These checks were run on 2026-11-11 by the agent that wrote the stories. A scrip
 What these checks do not show:
 
 - Whether each story is the right size for one developer agent. Stories 3.7, 4.7, 5.9, and 8.2 are the largest, and the first of them to be built is the test.
-- Whether a criterion matches `tmp/SPEC.md` word for word. Each story names the scenarios it covers, and the developer reads the scenario there.
+- Whether a criterion matches `temporary-plans/SPEC.md` word for word. Each story names the scenarios it covers, and the developer reads the scenario there.

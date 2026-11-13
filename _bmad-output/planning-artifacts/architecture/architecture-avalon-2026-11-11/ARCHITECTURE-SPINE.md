@@ -12,8 +12,8 @@ binds: ['FR-1 to FR-62', 'NFR-1 to NFR-5']
 sources:
   - '_bmad-output/planning-artifacts/prds/prd-avalon-2026-11-11/prd.md'
   - '_bmad-output/planning-artifacts/prds/prd-avalon-2026-11-11/addendum.md'
-  - 'tmp/SPEC.md'
-  - 'tmp/BRIEF.md'
+  - 'temporary-plans/SPEC.md'
+  - 'temporary-plans/BRIEF.md'
 companions: []
 ---
 
@@ -111,11 +111,11 @@ flowchart TD
 - **Binds:** all
 - **Prevents:** A permanent file that points at a plan after the plan has been deleted.
 - **Rule:**
-  - The plan files are everything under `_bmad-output/` (this spine included), `tmp/BRIEF.md`, and `tmp/SPEC.md`. They are removed after the work has landed.
+  - The plan files are everything under `_bmad-output/` (this spine included), `temporary-plans/BRIEF.md`, and `temporary-plans/SPEC.md`. They are removed after the work has landed.
   - No other tracked file names a plan file or uses an ID that a plan defines: `REQ-`, `AC-`, `FR-`, `NFR-`, `OQ-`, `SM-`, `UJ-`, or `AD-` followed by a number.
   - This covers code, tests, comments, skill and agent files, templates, workflows, the README, the community files, and this repo's own Avalon documents. A test is named for the behaviour it proves.
   - The permanent references are this repo's own Avalon documents: its laws by `LAW-` ID, its ADRs, and its design docs (AD-19).
-  - A gate scans every tracked text file outside `_bmad-output/`, `tmp/`, and `_bmad/`. It matches an ID only as a whole, case-sensitive token of a prefix and digits. It does not scan `uv.lock`.
+  - A gate scans every tracked text file outside `_bmad-output/`, `temporary-plans/`, and `_bmad/`. It matches an ID only as a whole, case-sensitive token of a prefix and digits. It does not scan `uv.lock`.
   - One file under `devtools/gates/` lists the folders the scan skips. That file, `.gitignore`, `pyproject.toml`, and the markdown lint config are the only tracked files that may name a plan folder.
   - The scan's own tests build their sample IDs at run time and store none.
   - `[ASSUMPTION]` The gate also scans the pull request title and body.
@@ -383,7 +383,7 @@ flowchart TD
   - The scan of tracked files also fails on a path inside a person's home folder.
   - `devtools/` reaches GitHub through one adapter that runs `gh`, and reaches git through one adapter of its own, because the script's git list is closed (AD-11). Tests fake both.
   - Every action is pinned to a full commit SHA. Every workflow states its permissions, and only the release job may write.
-  - `_bmad/`, `_bmad-output/`, and `tmp/` are outside every gate, and nothing imports from them.
+  - `_bmad/`, `_bmad-output/`, and `temporary-plans/` are outside every gate, and nothing imports from them.
 
 ### AD-18 — Two workflows gate a pull request, and one job gives the verdict [ADOPTED]
 
@@ -513,7 +513,7 @@ docs/                             this repo's laws, ADRs, and design docs, from 
 LICENSE  README.md  CONTRIBUTING.md  CODE_OF_CONDUCT.md  SECURITY.md
 pyproject.toml  uv.lock           development tools only
 .markdownlint-cli2.jsonc          the markdown lint config
-_bmad/  _bmad-output/  tmp/       planning tools and plans; temporary
+_bmad/  _bmad-output/  temporary-plans/       planning tools and plans; temporary
 ```
 
 ### The script's commands

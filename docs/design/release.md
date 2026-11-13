@@ -33,7 +33,7 @@ For each commit it reads the labels its merged pull request carries at that mome
 | `major` that is refused | The run stops and names the pull request. |
 | Any other label | One call creates the tag at that commit and the GitHub release. |
 
-A version whose release exists is not made again, so a second run over the same commits makes nothing twice. The code never pushes a commit.
+Before the walk, if the latest version's tag exists without its GitHub release, the run creates that release on the tag's own commit and leaves the tag as it is. A version whose release exists is not made again, so a second run over the same commits makes nothing twice. The code never pushes a commit.
 
 Exit codes: 0 when the run finishes, 1 when it stops on a commit, 2 when git or `gh` fails.
 

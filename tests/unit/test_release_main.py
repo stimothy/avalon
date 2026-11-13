@@ -14,7 +14,7 @@ class _BrokenGit(FakeGit):
 
 def test_release_prints_each_version_it_made(capsys: pytest.CaptureFixture[str]) -> None:
     git = FakeGit([], history=["c1", "c2"], tags={"v0.1.0": "c1"})
-    gh = FakeGh(merged={"c2": [PullRequest(2, ["patch"])]})
+    gh = FakeGh(merged={"c2": [PullRequest(2, ["patch"])]}, releases={"v0.1.0"})
 
     code = release_main.run(["release"], git, gh)
 
@@ -34,7 +34,7 @@ def test_a_stop_exits_one_and_names_the_pull_request(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     git = FakeGit([], history=["c1", "c2"], tags={"v0.1.0": "c1"})
-    gh = FakeGh(merged={"c2": [PullRequest(8, [])]})
+    gh = FakeGh(merged={"c2": [PullRequest(8, [])]}, releases={"v0.1.0"})
 
     code = release_main.run(["release"], git, gh)
 

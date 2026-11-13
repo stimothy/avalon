@@ -46,6 +46,11 @@ def release(git: GitPort, gh: GhPort, ref: str) -> list[Made]:
     latest = version.latest(git.tags())
     allowed = policy.major_allowed(gh.variable(policy.ALLOW_MAJOR_VARIABLE))
     made: list[Made] = []
+    if latest is not None and not gh.release_exists(latest.tag()):
+        # The tag exists without its release: publish it on its own commit, tag untouched.
+        commit = git.commit_of(latest.tag())
+        gh.create_release(latest.tag(), commit, NOTES)
+        made.append(Made(latest.tag(), commit))
     for commit in _commits(git, ref, latest):
         pulls = gh.merged_pull_requests(commit)
         if not pulls:

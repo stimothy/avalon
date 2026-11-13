@@ -6,11 +6,23 @@ from devtools.adapters.process import Completed
 
 
 class FakeGit:
-    def __init__(self, files: list[str]) -> None:
+    def __init__(self, files: list[str], changed: list[str] | None = None) -> None:
         self._files = files
+        self._changed = changed or []
 
     def tracked_files(self) -> list[str]:
         return list(self._files)
+
+    def changed_files(self, base: str) -> list[str]:
+        return list(self._changed)
+
+
+class FakeGh:
+    def __init__(self, changed: list[str]) -> None:
+        self._changed = changed
+
+    def changed_files(self, pull_request: int) -> list[str]:
+        return list(self._changed)
 
 
 class FakeProcess:

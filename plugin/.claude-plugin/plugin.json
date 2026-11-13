@@ -1,0 +1,14 @@
+{
+  "name": "avalon",
+  "description": "A lasting home for a repository's rules, decisions, and design descriptions.",
+  "license": "MIT",
+  "userConfig": {
+    "default_root": {
+      "type": "string",
+      "title": "Default docs root",
+      "description": "The folder in a repo where Avalon creates its docs tree.",
+      "default": "docs",
+      "required": false
+    }
+  }
+}

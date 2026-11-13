@@ -4,7 +4,25 @@ Avalon is a Claude Code plugin that gives a repository a lasting home for its ru
 
 ## Status
 
-Avalon is a **pre-release**. This repo holds its planning documents and its own first docs tree. It holds **no working round table yet**, and there is nothing to install. Versions stay below 1.0 until that changes.
+Avalon is a **pre-release**. This repo holds its planning documents and its own first docs tree. It holds **no working round table yet**, so the plugin you can install does nothing useful. Versions stay below 1.0 until that changes.
+
+## Install
+
+This repo is a Claude Code marketplace, and the plugin lives in its `plugin/` folder. Only that folder is installed. To add the marketplace and install the plugin, run:
+
+```text
+/plugin marketplace add stimothy/avalon
+/plugin install avalon@avalon
+```
+
+To receive a later release, refresh the marketplace and update the plugin, then restart Claude Code:
+
+```text
+/plugin marketplace update avalon
+/plugin update avalon@avalon
+```
+
+To try a local checkout, start Claude Code with `--plugin-dir ./plugin`.
 
 ## Privacy
 

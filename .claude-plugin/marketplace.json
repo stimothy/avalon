@@ -1,0 +1,16 @@
+{
+  "name": "avalon",
+  "owner": {
+    "name": "the Avalon contributors"
+  },
+  "metadata": {
+    "description": "The Avalon plugin, installed from its GitHub repo."
+  },
+  "plugins": [
+    {
+      "name": "avalon",
+      "source": "./plugin",
+      "description": "A lasting home for a repository's rules, decisions, and design descriptions."
+    }
+  ]
+}

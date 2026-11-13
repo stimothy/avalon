@@ -98,8 +98,8 @@ class RealGh:
 
     def variable(self, name: str) -> str | None:
         # A workflow token cannot read repository variables, so a workflow hands one in by env.
-        if self._env.get(name):
-            return self._env[name].strip()
+        if name in self._env:
+            return self._env[name].strip() or None
         done = self._run(["variable", "get", name])
         if done.returncode == 0:
             return done.stdout.strip()

@@ -109,6 +109,14 @@ def test_a_variable_handed_in_by_env_is_used_without_running_gh() -> None:
     assert (value, process.calls) == ("true", [])
 
 
+def test_an_empty_variable_in_env_is_none_without_running_gh() -> None:
+    process = FakeProcess()
+
+    value = RealGh(process, "/repo", {"ALLOW": ""}).variable("ALLOW")
+
+    assert (value, process.calls) == (None, [])
+
+
 def test_a_variable_that_is_not_set_is_none() -> None:
     process = FakeProcess(default=Completed(1, "", "variable ALLOW not found\n"))
 

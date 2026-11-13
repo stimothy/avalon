@@ -46,7 +46,7 @@ Its one job, `pr`, is the check to require next to `all-green`. It runs, in orde
 2. `python -m devtools.gates pull-request`, which scans the title and the body for plan citations.
 3. `python -m devtools.release dry-run --pr N`, which shows the version the pull request would get.
 
-A workflow token cannot read repository variables through `gh`, so the workflow passes `ALLOW_PRE_1_MAJOR` in the environment, and `RealGh.variable` reads the environment first and `gh` second.
+A workflow token cannot read repository variables through `gh`, so the workflow passes `ALLOW_PRE_1_MAJOR` in the environment, and `RealGh.variable` uses the environment when it defines the name, an empty value meaning unset, and asks `gh` only when it does not.
 
 ## The release workflow
 

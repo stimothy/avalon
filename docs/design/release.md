@@ -47,4 +47,4 @@ The notes start with an `On upgrade` section for what a user must do in a target
 
 ## Ports
 
-The code reaches git through `RealGit` and GitHub through `RealGh`, which runs `gh` through the process adapter and reads the repository variable from the environment first, because a workflow token cannot read it. Unit tests replace both with fakes. The contract suite runs the git fake and `RealGit` through the same cases in a throwaway repo. No suite reaches GitHub.
+The code reaches git through `RealGit` and GitHub through `RealGh`, which runs `gh` through the process adapter and reads the repository variable from the environment when the environment defines it, even as an empty value meaning unset, and asks `gh` only when it does not, because a workflow token cannot read it. Unit tests replace both with fakes. The contract suite runs the git fake and `RealGit` through the same cases in a throwaway repo. No suite reaches GitHub.

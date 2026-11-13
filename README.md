@@ -15,7 +15,14 @@ This repo is a Claude Code marketplace, and the plugin lives in its `plugin/` fo
 /plugin install avalon@avalon
 ```
 
-The same two commands bring each later release. To try a local checkout, start Claude Code with `--plugin-dir ./plugin`.
+To receive a later release, refresh the marketplace and update the plugin, then restart Claude Code:
+
+```text
+/plugin marketplace update avalon
+/plugin update avalon@avalon
+```
+
+To try a local checkout, start Claude Code with `--plugin-dir ./plugin`.
 
 ## Privacy
 
